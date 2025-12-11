@@ -386,13 +386,15 @@ router.post('/products/bulk-upload', [requireAdmin, uploadAccountsFile], async (
 // Add product (single product without accounts)
 router.post('/products', requireAdmin, uploadNone, async (req, res) => {
   try {
+    console.log('Adding product:', req.body);
     await Product.create(req.body);
     await AdminLog.log({ admin_id: req.session.userId, action: 'CREATE', target_type: 'Product', target_id: null, details: req.body });
     res.redirect('/admin/products?success=Product created successfully');
   } catch (error) {
-    console.error(error);
+    console.error('Product creation error:', error);
     // In demo mode when DB not available, create in memory
-    if (error.code === 'ECONNREFUSED' || error.message.includes('connection')) {
+    if (error.code === 'ECONNREFUSED' || error.message.includes('connection') || error.message.includes('PostgreSQL')) {
+      console.log('DB not available, using demo mode');
       demo.addDemoProduct(req.body);
       res.redirect('/admin/products?success=Product created successfully (Demo Mode)');
     } else {
@@ -654,7 +656,14 @@ router.post('/users/:id/ban', requireAdmin, async (req, res) => {
 // Product edit route (for individual product editing)
 router.get('/products/:id/edit', requireAdmin, async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    let product;
+    try {
+      product = await Product.findById(req.params.id);
+    } catch (dbError) {
+      console.warn('Database not available for product edit, checking demo...');
+      product = demo.getDemoProducts(100).find(p => p.product_id == req.params.id);
+    }
+
     if (!product) {
       return res.status(404).render('404', { title: 'Product Not Found' });
     }
