@@ -24,114 +24,42 @@ let demoOrders = [{
 }];
 let demoOrderIdCounter = 10001;
 
-let demoProducts = [
-  {
-    product_id: 1,
-    name: 'Wireless Bluetooth Headphones',
-    description: 'Premium wireless headphones with noise cancellation',
-    price: 89.99,
-    sale_price: null,
-    quantity: 3,
-    min_stock_alert: 5,
-    status: 'active',
-    category: 'Electronics',
-    tags: 'electronics,wireless,audio',
-    sku: 'WHP-001',
-    image_url: null,
-    created_at: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
-  },
-  {
-    product_id: 2,
-    name: 'Smart Fitness Watch',
-    description: 'Advanced fitness tracking watch with GPS',
-    price: 149.99,
-    sale_price: 129.99,
-    quantity: 1,
-    min_stock_alert: 8,
-    status: 'active',
-    category: 'Wearables',
-    tags: 'fitness,wearables,smart',
-    sku: 'SFW-002',
-    image_url: '/uploads/products/demo-watch.jpg',
-    created_at: new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString()
-  },
-  {
-    product_id: 3,
-    name: 'Portable Power Bank',
-    description: 'High-capacity power bank for all your devices',
-    price: 39.99,
-    sale_price: null,
-    quantity: 25,
-    min_stock_alert: 10,
-    status: 'active',
-    category: 'Accessories',
-    tags: 'power,battery,mobile',
-    sku: 'PPB-003',
-    image_url: '/uploads/products/demo-powerbank.jpg',
-    created_at: new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString()
-  },
-  {
-    product_id: 4,
-    name: 'USB-C Cable',
-    description: 'Durable USB-C charging cable',
-    price: 12.99,
-    sale_price: null,
-    quantity: 45,
-    min_stock_alert: 15,
-    status: 'active',
-    category: 'Accessories',
-    tags: 'usb,cable,charging',
-    sku: 'USC-004',
-    image_url: null,
-    created_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
-  },
-  {
-    product_id: 5,
-    name: 'Bluetooth Speaker',
-    description: 'Portable wireless speaker with amazing sound quality',
-    price: 69.99,
-    sale_price: 59.99,
-    quantity: 8,
-    min_stock_alert: 12,
-    status: 'active',
-    category: 'Electronics',
-    tags: 'audio,wireless,speaker',
-    sku: 'BTS-005',
-    image_url: null,
-    created_at: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString()
-  },
-  {
-    product_id: 6,
-    name: 'Laptop Stand',
-    description: 'Adjustable aluminum laptop stand for ergonomic work',
-    price: 34.99,
-    sale_price: null,
-    quantity: 0,
-    min_stock_alert: 6,
-    status: 'out_of_stock',
-    category: 'Accessories',
-    tags: 'laptop,ergo,stand',
-    sku: 'LST-006',
-    image_url: null,
-    created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
-  },
-  {
-    product_id: 7,
-    name: 'Wireless Mouse',
-    description: 'Ergonomic wireless mouse with customizable buttons',
-    price: 29.99,
-    sale_price: null,
-    quantity: 15,
-    min_stock_alert: 8,
-    status: 'draft',
-    category: 'Electronics',
-    tags: 'mouse,wireless,pc',
-    sku: 'WMS-007',
-    image_url: null,
-    created_at: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString()
+// Load demo products from file if exists
+const fs = require('fs');
+let demoProducts = [];
+let demoProductIdCounter = 1; // fallback
+
+function loadDemoProducts() {
+  try {
+    if (fs.existsSync('./demo-products.json')) {
+      const data = fs.readFileSync('./demo-products.json', 'utf8');
+      const parsed = JSON.parse(data);
+      demoProducts = parsed.products || [];
+      demoProductIdCounter = parsed.counter || 1;
+    } else {
+      // Start with empty demo products
+      demoProducts = [];
+      demoProductIdCounter = 1;
+      saveDemoProducts();
+    }
+  } catch (error) {
+    console.error('Error loading demo products:', error);
+    demoProducts = [];
   }
-];
-let demoProductIdCounter = 8;
+}
+
+function saveDemoProducts() {
+  try {
+    fs.writeFileSync('./demo-products.json', JSON.stringify({
+      products: demoProducts,
+      counter: demoProductIdCounter
+    }, null, 2));
+  } catch (error) {
+    console.error('Error saving demo products:', error);
+  }
+}
+
+loadDemoProducts();
 
 function getDemoProducts(limit) {
   return demoProducts.slice(0, limit || demoProducts.length);
@@ -153,6 +81,7 @@ function addDemoProduct(product) {
     created_at: new Date().toISOString()
   };
   demoProducts.unshift(newProduct); // Add to top
+  saveDemoProducts(); // Persist to file
   return newProduct;
 }
 
