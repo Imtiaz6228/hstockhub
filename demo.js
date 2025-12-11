@@ -62,6 +62,8 @@ function saveDemoProducts() {
 loadDemoProducts();
 
 function getDemoProducts(limit) {
+  // Reload from file each time to reflect changes across PM2 processes
+  loadDemoProducts();
   return demoProducts.slice(0, limit || demoProducts.length);
 }
 
