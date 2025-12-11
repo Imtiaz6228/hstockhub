@@ -222,7 +222,7 @@ router.get('/', requireAdmin, async (req, res) => {
   }
 });
 
-// Products management
+// Products management - Always use demo for consistency
 router.get('/products', requireAdmin, async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -230,77 +230,45 @@ router.get('/products', requireAdmin, async (req, res) => {
     const offset = (page - 1) * limit;
     const { search, category, status, sort } = req.query;
 
-    let products, totalCount, totalPages;
+    // Use demo products for consistent functionality
+    let products = demo.getDemoProducts(null);
 
-    // Try to get real data first
-    try {
-      // Build where conditions
-      let whereConditions = {};
-      if (category) whereConditions.category = category;
-      if (status) whereConditions.status = status || ['active', 'draft', 'out_of_stock'];
-      if (search) whereConditions.search = search;
-
-      // Handle sorting
-      let orderBy = 'created_at DESC';
-      if (sort) {
-        switch (sort) {
-          case 'oldest': orderBy = 'created_at ASC'; break;
-          case 'price_high': orderBy = 'price DESC'; break;
-          case 'price_low': orderBy = 'price ASC'; break;
-          case 'stock_low': orderBy = 'quantity ASC'; break;
-          default: orderBy = 'created_at DESC';
-        }
-      }
-
-      // Get total count for pagination
-      totalCount = await Product.getCount(whereConditions);
-      totalPages = Math.ceil(totalCount / limit);
-
-      // Get products
-      products = await Product.getFiltered(whereConditions, orderBy, limit, offset);
-    } catch (dbError) {
-      console.warn('Database not available, showing demo products for admin testing');
-
-      // Demo products data for testing
-      products = demo.getDemoProducts(null);
-
-      // Filter demo products based on query params
-      if (search) {
-        const searchLower = search.toLowerCase();
-        products = products.filter(p =>
-          p.name.toLowerCase().includes(searchLower) ||
-          p.description.toLowerCase().includes(searchLower) ||
-          p.sku.toLowerCase().includes(searchLower)
-        );
-      }
-
-      if (category) {
-        products = products.filter(p => p.category === category);
-      }
-
-      if (status) {
-        products = products.filter(p => p.status === status);
-      }
-
-      // Sort demo products
-      if (sort) {
-        switch (sort) {
-          case 'oldest': products.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)); break;
-          case 'price_high': products.sort((a, b) => b.price - a.price); break;
-          case 'price_low': products.sort((a, b) => a.price - b.price); break;
-          case 'stock_low': products.sort((a, b) => a.quantity - b.quantity); break;
-          default: products.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-        }
-      }
-
-      totalCount = products.length;
-      totalPages = Math.ceil(totalCount / limit);
-
-      // Apply pagination
-      const startIndex = offset;
-      const endIndex = startIndex + limit;
-      products = products.slice(startIndex, endIndex);
+    // Filter demo products based on query params
+    if (search) {
+      const searchLower = search.toLowerCase();
+      products = products.filter(p =>
+        p.name.toLowerCase().includes(searchLower) ||
+        p.description.toLowerCase().includes(searchLower) ||
+        p.sku.toLowerCase().includes(searchLower)
+      );
     }
+
+    if (category) {
+      products = products.filter(p => p.category === category);
+    }
+
+    if (status) {
+      products = products.filter(p => p.status === status);
+    }
+
+    // Sort demo products
+    if (sort) {
+      switch (sort) {
+        case 'oldest': products.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)); break;
+        case 'price_high': products.sort((a, b) => b.price - a.price); break;
+        case 'price_low': products.sort((a, b) => a.price - b.price); break;
+        case 'stock_low': products.sort((a, b) => a.quantity - b.quantity); break;
+        default: products.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      }
+    }
+
+    const totalCount = products.length;
+    const totalPages = Math.ceil(totalCount / limit);
+
+    // Apply pagination
+    const startIndex = offset;
+    const endIndex = startIndex + limit;
+    products = products.slice(startIndex, endIndex);
 
     res.render('admin/products', {
       layout: 'admin/layout',
@@ -383,47 +351,56 @@ router.post('/products/bulk-upload', [requireAdmin, uploadAccountsFile], async (
 });
 */
 
-// Add product (single product without accounts)
+// Add product (single product without accounts) - Always use demo
 router.post('/products', requireAdmin, uploadNone, async (req, res) => {
   try {
-    console.log('Adding product:', req.body);
-    await Product.create(req.body);
-    await AdminLog.log({ admin_id: req.session.userId, action: 'CREATE', target_type: 'Product', target_id: null, details: req.body });
+    console.log('Adding product to demo:', req.body);
+    demo.addDemoProduct(req.body);
+    await AdminLog.log({ admin_id: req.session.userId, action: 'CREATE', target_type: 'Product', target_id: null, details: req.body }, true); // Skip DB for demo
     res.redirect('/admin/products?success=Product created successfully');
   } catch (error) {
-    console.error('Product creation error:', error);
-    // In demo mode when DB not available, create in memory
-    if (error.code === 'ECONNREFUSED' || error.message.includes('connection') || error.message.includes('PostgreSQL')) {
-      console.log('DB not available, using demo mode');
-      demo.addDemoProduct(req.body);
-      res.redirect('/admin/products?success=Product created successfully (Demo Mode)');
-    } else {
-      res.redirect('/admin/products?error=Failed to create product: ' + error.message);
-    }
+    console.error('Product addition error:', error);
+    res.redirect('/admin/products?error=Failed to create product: ' + error.message);
   }
 });
 
-// Update product
+// Update product - Always use demo
 router.post('/products/:id', requireAdmin, async (req, res) => {
   try {
-    await Product.update(req.params.id, req.body);
-    await AdminLog.log({ admin_id: req.session.userId, action: 'UPDATE', target_type: 'Product', target_id: req.params.id, details: req.body });
-    res.redirect('/admin/products');
+    console.log('Updating product in demo:', req.params.id, req.body);
+    const productId = parseInt(req.params.id);
+    const products = demo.getDemoProducts(null);
+    const product = products.find(p => p.product_id === productId);
+    if (product) {
+      Object.assign(product, req.body);
+      await AdminLog.log({ admin_id: req.session.userId, action: 'UPDATE', target_type: 'Product', target_id: req.params.id, details: req.body }, true);
+      res.redirect('/admin/products?success=Product updated successfully');
+    } else {
+      res.redirect('/admin/products?error=Product not found');
+    }
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Error updating product');
+    console.error('Product update error:', error);
+    res.redirect('/admin/products?error=Failed to update product');
   }
 });
 
-// Delete product
+// Delete product - Always use demo
 router.post('/products/:id/delete', requireAdmin, async (req, res) => {
   try {
-    await Product.delete(req.params.id);
-    await AdminLog.log({ admin_id: req.session.userId, action: 'DELETE', target_type: 'Product', target_id: req.params.id });
-    res.redirect('/admin/products');
+    console.log('Deleting product from demo:', req.params.id);
+    const productId = parseInt(req.params.id);
+    const products = demo.getDemoProducts(null);
+    const index = products.findIndex(p => p.product_id === productId);
+    if (index !== -1) {
+      products.splice(index, 1);
+      await AdminLog.log({ admin_id: req.session.userId, action: 'DELETE', target_type: 'Product', target_id: req.params.id }, true);
+      res.redirect('/admin/products?success=Product deleted successfully');
+    } else {
+      res.redirect('/admin/products?error=Product not found');
+    }
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Error deleting product');
+    console.error('Product deletion error:', error);
+    res.redirect('/admin/products?error=Failed to delete product');
   }
 });
 
