@@ -13,45 +13,56 @@
 </head>
 <body>
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-    <div class="container">
-      <a class="navbar-brand fw-bold text-white" href="/">
-        <i class="fas fa-store fa-lg me-2"></i>
-        HStockHub
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-lg modern-nav">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand fw-bold text-white d-flex align-items-center" href="/">
+        <div class="brand-icon me-3">
+          <i class="fas fa-store-alt text-warning"></i>
+        </div>
+        <span class="brand-text">HStockHub</span>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
-          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
-          <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
-          <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
-          <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
-          <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-modern" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-modern" href="#products">Products</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-modern" href="#pricing">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-modern" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-modern" href="#reviews">Reviews</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-modern" href="#faq">FAQ</a></li>
         </ul>
-        <ul class="navbar-nav">
+        <ul class="navbar-nav d-flex flex-row gap-2 gap-lg-0">
           <% if (typeof user !== 'undefined' && user) { %>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+              <a class="nav-link dropdown-toggle user-menu-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                <i class="fas fa-user-circle me-2"></i>
                 <%= user.name %>
-                <% if (typeof user.isAdmin !== 'undefined' && user.isAdmin) { %> (Admin)<% } %>
-              </a>
-              <ul class="dropdown-menu">
                 <% if (typeof user.isAdmin !== 'undefined' && user.isAdmin) { %>
-                  <li><a class="dropdown-item" href="/admin">Dashboard</a></li>
+                  <span class="badge bg-warning text-dark ms-2">Admin</span>
                 <% } %>
-                <li><a class="dropdown-item" href="/cart">Cart</a></li>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end modern-dropdown">
+                <% if (typeof user.isAdmin !== 'undefined' && user.isAdmin) { %>
+                  <li><a class="dropdown-item" href="/admin"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
+                <% } %>
+                <li><a class="dropdown-item" href="/cart"><i class="fas fa-shopping-cart me-2"></i>Cart</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li>
-                  <a href="/logout" class="dropdown-item">Logout</a>
-                </li>
+                <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
               </ul>
             </li>
           <% } else { %>
-            <li class="nav-item"><a class="nav-link btn btn-outline-primary me-2" href="/login">Login</a></li>
-            <li class="nav-item"><a class="nav-link btn btn-primary" href="/register">Sign Up</a></li>
+            <li class="nav-item">
+              <a class="btn btn-outline-light btn-modern me-2" href="/login">
+                <i class="fas fa-sign-in-alt me-2"></i>Login
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-warning btn-modern fw-bold" href="/register">
+                <i class="fas fa-user-plus me-2"></i>Sign Up
+              </a>
+            </li>
           <% } %>
         </ul>
       </div>
@@ -59,23 +70,139 @@
   </nav>
 
   <!-- Hero Section -->
-  <section id="home" class="hero-section py-5 mt-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <h1 class="display-4 fw-bold mb-4">Premium Quality Accounts</h1>
-          <p class="lead mb-4">Get verified Instagram, Facebook, Gmail accounts and more at HStockHub. Aged, trusted accounts perfect for marketing, business growth, and social media management.</p>
-          <div class="mb-4">
-            <i class="fab fa-instagram fa-2x me-3 text-light"></i>
-            <i class="fab fa-facebook fa-2x me-3 text-light"></i>
-            <i class="fas fa-envelope fa-2x me-3 text-light"></i>
-            <span class="fw-bold">+ Many More Social Platforms</span>
+  <section id="home" class="hero-section position-relative overflow-hidden">
+    <!-- Background with animated gradient -->
+    <div class="hero-bg"></div>
+
+    <!-- Floating particles -->
+    <div class="hero-particles">
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+      <div class="particle particle-4"></div>
+    </div>
+
+    <div class="container position-relative">
+      <div class="row align-items-center min-vh-100 py-5">
+        <div class="col-lg-6 col-md-7">
+          <div class="hero-content">
+            <!-- Trust badge -->
+            <div class="trust-badge mb-4">
+              <i class="fas fa-shield-check me-2"></i>
+              <span class="fw-bold">Trusted by 10,000+ Customers</span>
+              <div class="badge-stars">
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+              </div>
+            </div>
+
+            <!-- Main heading -->
+            <h1 class="hero-title display-3 fw-bold mb-4">
+              Premium Social Media
+              <span class="text-accent">Accounts</span>
+              <br>
+              <span class="hero-subtitle">That Drive Results</span>
+            </h1>
+
+            <!-- Description -->
+            <p class="hero-description lead mb-4 text-muted">
+              Get verified Instagram, Facebook, Gmail, and premium accounts across 9+ platforms.
+              Aged, trusted accounts perfect for marketing automation, business growth, and social media management.
+            </p>
+
+            <!-- Social proof -->
+            <div class="social-proof mb-4">
+              <div class="d-flex align-items-center mb-3">
+                <div class="platform-icons">
+                  <i class="fab fa-instagram platform-icon instagram"></i>
+                  <i class="fab fa-facebook platform-icon facebook"></i>
+                  <i class="fas fa-envelope platform-icon gmail"></i>
+                  <i class="fab fa-tiktok platform-icon tiktok"></i>
+                  <span class="ms-2 fw-bold text-dark">+5 More Platforms</span>
+                </div>
+              </div>
+              <div class="stats">
+                <div class="stat-item">
+                  <span class="stat-number">50K+</span>
+                  <span class="stat-label">Accounts Delivered</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">99.9%</span>
+                  <span class="stat-label">Success Rate</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">24/7</span>
+                  <span class="stat-label">Support</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="hero-buttons mb-4">
+              <a href="#products" class="btn btn-primary btn-lg px-5 py-3 me-3 mb-3 hero-btn-primary">
+                <i class="fas fa-shopping-cart me-2"></i>
+                Browse Accounts
+              </a>
+              <a href="#features" class="btn btn-outline-primary btn-lg px-5 py-3 mb-3 hero-btn-secondary">
+                <i class="fas fa-star me-2"></i>
+                View Features
+              </a>
+            </div>
+
+            <!-- Guarantee -->
+            <div class="guarantee d-flex align-items-center">
+              <i class="fas fa-check-circle text-success fs-5 me-3"></i>
+              <span class="text-muted">30-Day money-back guarantee • Instant delivery • Lifetime support</span>
+            </div>
           </div>
-          <a href="#products" class="btn btn-light btn-lg me-3">Browse Accounts</a>
-          <a href="#pricing" class="btn btn-outline-light btn-lg">View Pricing</a>
         </div>
-        <div class="col-lg-6">
-          <img src="https://via.placeholder.com/600x400?text=HStockHub+Social+Media+Accounts" class="img-fluid rounded" alt="Premium Social Media Accounts">
+
+        <div class="col-lg-6 col-md-5">
+          <div class="hero-visual">
+            <!-- Interactive dashboard mockup -->
+            <div class="dashboard-mockup">
+              <div class="mockup-header">
+                <div class="mockup-dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <div class="mockup-title">HStockHub Dashboard</div>
+              </div>
+              <div class="mockup-content">
+                <div class="stats-grid">
+                  <div class="stat-card">
+                    <i class="fas fa-shopping-cart text-primary"></i>
+                    <div class="stat-value">12,547</div>
+                    <div class="stat-label">Accounts Sold</div>
+                  </div>
+                  <div class="stat-card">
+                    <i class="fas fa-users text-success"></i>
+                    <div class="stat-value">8,932</div>
+                    <div class="stat-label">Happy Customers</div>
+                  </div>
+                  <div class="stat-card">
+                    <i class="fas fa-star text-warning"></i>
+                    <div class="stat-value">4.9</div>
+                    <div class="stat-label">Average Rating</div>
+                  </div>
+                </div>
+                <div class="platform-selection">
+                  <h6>Choose Your Platform</h6>
+                  <div class="platform-buttons">
+                    <button class="platform-btn active"><i class="fab fa-instagram"></i></button>
+                    <button class="platform-btn"><i class="fab fa-facebook"></i></button>
+                    <button class="platform-btn"><i class="fas fa-envelope"></i></button>
+                    <button class="platform-btn"><i class="fab fa-tiktok"></i></button>
+                    <button class="platform-btn"><i class="fab fa-youtube"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
