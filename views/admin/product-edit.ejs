@@ -1,0 +1,414 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0"><%= product ? 'Edit Product' : 'Add New Product' %></h4>
+    <div>
+        <a href="/admin/products" class="btn btn-outline-secondary me-2">
+            <i class="fas fa-arrow-left me-2"></i>Back to Products
+        </a>
+        <% if (product) { %>
+            <button type="submit" form="productForm" class="btn btn-primary">
+                <i class="fas fa-save me-2"></i>Update Product
+            </button>
+        <% } else { %>
+            <button type="submit" form="productForm" class="btn btn-success">
+                <i class="fas fa-plus me-2"></i>Create Product
+            </button>
+        <% } %>
+    </div>
+</div>
+
+<form id="productForm" method="POST" enctype="multipart/form-data" class="card">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <% if (product) { %>
+        <input type="hidden" name="product_id" value="<%= product.product_id %>">
+    <% } %>
+
+    <div class="card-body">
+        <!-- Basic Information -->
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="mb-4">
+                    <h5><i class="fas fa-info-circle me-2"></i>Basic Information</h5>
+                    <hr>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-8">
+                        <label for="name" class="form-label">Product Name *</label>
+                        <input type="text" class="form-control" id="name" name="name" required
+                               value="<%= product ? product.name : '' %>" maxlength="255">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="sku" class="form-label">SKU / Product Code</label>
+                        <input type="text" class="form-control" id="sku" name="sku"
+                               value="<%= product ? product.sku : '' %>" maxlength="100">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="short_description" class="form-label">Short Description</label>
+                    <textarea class="form-control" id="short_description" name="short_description" rows="2"
+                              maxlength="500"><%= product ? product.short_description || '' : '' %></textarea>
+                    <div class="form-text">Brief description shown in product listings</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="full_description" class="form-label">Full Description</label>
+                    <textarea class="form-control" id="full_description" name="full_description" rows="6"
+                              maxlength="5000"><%= product ? product.full_description || '' : '' %></textarea>
+                    <div class="form-text">Detailed product description with HTML support</div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <h6 class="mb-0">Publish Settings</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-control" id="status" name="status">
+                                <option value="active" <%= (!product || product.status === 'active') ? 'selected' : '' %>>Active</option>
+                                <option value="draft" <%= product && product.status === 'draft' ? 'selected' : '' %>>Draft</option>
+                                <option value="out_of_stock" <%= product && product.status === 'out_of_stock' ? 'selected' : '' %>>Out of Stock</option>
+                            </select>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="featured" name="featured"
+                                   <%= product && product.featured ? 'checked' : '' %>>
+                            <label class="form-check-label" for="featured">
+                                Featured Product
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing -->
+        <div class="row my-4">
+            <div class="col-12">
+                <h5><i class="fas fa-dollar-sign me-2"></i>Pricing</h5>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <label for="price" class="form-label">Base Price *</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="price" name="price" required
+                           step="0.01" min="0" value="<%= product ? product.price : '' %>">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="sale_price" class="form-label">Sale Price</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="sale_price" name="sale_price"
+                           step="0.01" min="0" value="<%= product ? product.sale_price : '' %>">
+                </div>
+                <div class="form-text">Leave empty for no sale</div>
+            </div>
+            <div class="col-md-3">
+                <label for="cost" class="form-label">Product Cost</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="cost" name="cost"
+                           step="0.01" min="0" value="<%= product ? product.cost : '' %>">
+                </div>
+                <div class="form-text">For profit calculations</div>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Profit Margin</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="profit_margin" readonly>
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory -->
+        <div class="row my-4">
+            <div class="col-12">
+                <h5><i class="fas fa-warehouse me-2"></i>Inventory</h5>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <label for="quantity" class="form-label">Stock Quantity *</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" required
+                       min="0" value="<%= product ? product.quantity : '0' %>">
+            </div>
+            <div class="col-md-4">
+                <label for="min_stock_alert" class="form-label">Low Stock Alert</label>
+                <input type="number" class="form-control" id="min_stock_alert" name="min_stock_alert"
+                       min="0" value="<%= product ? product.min_stock_alert || '5' : '5' %>">
+                <div class="form-text">Alert when stock reaches this level</div>
+            </div>
+            <div class="col-md-4">
+                <label for="category" class="form-label">Category</label>
+                <input type="text" class="form-control" id="category" name="category"
+                       value="<%= product ? product.category : '' %>">
+            </div>
+        </div>
+
+        <!-- Images -->
+        <div class="row my-4">
+            <div class="col-12">
+                <h5><i class="fas fa-images me-2"></i>Product Images</h5>
+                <hr>
+            </div>
+        </div>
+
+        <!-- Main Image -->
+        <div class="mb-4">
+            <label class="form-label">Main Product Image</label>
+            <div class="border rounded p-3 mb-3" style="min-height: 150px;">
+                <div class="row" id="mainImageContainer">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <input type="file" class="form-control" id="main_image" name="main_image" accept="image/*">
+                            <div class="form-text">Upload the main product image (JPG, PNG, WebP up to 5MB)</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="mainImagePreview" class="text-center">
+                            <% if (product && product.image_url) { %>
+                                <img id="mainImageDisplay" src="<%= product.image_url %>" class="img-fluid rounded" style="max-height: 120px;">
+                            <% } else { %>
+                                <div id="mainImagePlaceholder" class="text-muted d-flex align-items-center justify-content-center" style="height: 120px; border: 2px dashed #dee2e6; border-radius: 0.375rem;">
+                                    <div class="text-center">
+                                        <i class="fas fa-image fa-2x mb-2"></i>
+                                        <br>Upload main image
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Images -->
+        <div class="mb-4">
+            <label class="form-label">Gallery Images</label>
+            <div class="border rounded p-3">
+                <input type="file" class="form-control mb-3" id="gallery_images" name="gallery_images" accept="image/*" multiple>
+                <div class="form-text">Upload additional product images (multiple files allowed, up to 10 images)</div>
+
+                <div id="galleryPreview" class="row g-2 mt-3">
+                    <% if (product && product.galleryImages) { %>
+                        <% product.galleryImages.forEach(image => { %>
+                            <div class="col-md-3 col-sm-4">
+                                <div class="position-relative">
+                                    <img src="<%= image.image_url %>" class="img-fluid rounded" alt="<%= image.alt_text %>">
+                                    <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0" onclick="removeGalleryImage(<%= image.image_id %>)">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        <% }) %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <!-- Files/Manuals -->
+        <div class="row my-4">
+            <div class="col-12">
+                <h5><i class="fas fa-file-upload me-2"></i>Product Files & Manuals</h5>
+                <hr>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="product_manual" class="form-label">Upload Product Manual/Document</label>
+                            <input type="file" class="form-control" id="product_manual" name="product_manual"
+                                   accept=".pdf,.doc,.docx,.txt">
+                            <div class="form-text">Supported formats: PDF, DOC, DOCX, TXT (max 10MB)</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Current Manual</label>
+                            <% if (product && product.manual_url) { %>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-file<%- product.manual_url.split('.').pop() === 'pdf' ? '-pdf' : '-word' %> fa-2x text-primary me-2"></i>
+                                    <div>
+                                        <a href="<%= product.manual_url %>" target="_blank" class="text-decoration-none">
+                                            <%= product.manual_url.split('/').pop() %>
+                                        </a>
+                                        <br><small class="text-muted">Click to download</small>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-danger ms-2" onclick="removeManual()">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            <% } else { %>
+                                <p class="text-muted mb-0">No manual uploaded</p>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tags & Keywords -->
+        <div class="row my-4">
+            <div class="col-12">
+                <h5><i class="fas fa-tags me-2"></i>Tags & SEO</h5>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <label for="tags" class="form-label">Tags</label>
+                <input type="text" class="form-control" id="tags" name="tags"
+                       value="<%= product ? product.tags : '' %>">
+                <div class="form-text">Comma-separated tags (e.g., electronics, wireless, gaming)</div>
+            </div>
+            <div class="col-md-6">
+                <label for="keywords" class="form-label">SEO Keywords</label>
+                <input type="text" class="form-control" id="keywords" name="keywords"
+                       value="<%= product ? product.keywords : '' %>">
+                <div class="form-text">SEO keywords for search optimization</div>
+            </div>
+        </div>
+
+        <!-- SEO Meta -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <label for="meta_title" class="form-label">Meta Title</label>
+                <input type="text" class="form-control" id="meta_title" name="meta_title"
+                       value="<%= product ? product.meta_title : '' %>" maxlength="255">
+            </div>
+            <div class="col-md-6">
+                <label for="meta_description" class="form-label">Meta Description</label>
+                <textarea class="form-control" id="meta_description" name="meta_description" rows="3"
+                          maxlength="500"><%= product ? product.meta_description : '' %></textarea>
+            </div>
+        </div>
+
+        <!-- Additional Details -->
+        <div class="row my-4">
+            <div class="col-12">
+                <h5><i class="fas fa-info-circle me-2"></i>Additional Details</h5>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label for="weight" class="form-label">Weight (kg)</label>
+                <input type="number" class="form-control" id="weight" name="weight" step="0.01" min="0"
+                       value="<%= product ? product.weight : '' %>">
+            </div>
+            <div class="col-md-8">
+                <label for="dimensions" class="form-label">Dimensions (L x W x H)</label>
+                <input type="text" class="form-control" id="dimensions" name="dimensions"
+                       placeholder="e.g., 10x20x5 cm" value="<%= product ? product.dimensions : '' %>">
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer text-center">
+        <a href="/admin/products" class="btn btn-secondary me-2">Cancel</a>
+        <% if (product) { %>
+            <button type="submit" class="btn btn-primary">Update Product</button>
+        <% } else { %>
+            <button type="submit" class="btn btn-success">Create Product</button>
+        <% } %>
+    </div>
+</form>
+
+<script>
+// Calculate profit margin
+function calculateProfitMargin() {
+    const price = parseFloat(document.getElementById('price').value) || 0;
+    const cost = parseFloat(document.getElementById('cost').value) || 0;
+    const salePrice = parseFloat(document.getElementById('sale_price').value) || price;
+
+    if (cost > 0 && salePrice > cost) {
+        const margin = ((salePrice - cost) / salePrice) * 100;
+        document.getElementById('profit_margin').value = margin.toFixed(2) + '%';
+    } else {
+        document.getElementById('profit_margin').value = '0.00%';
+    }
+}
+
+// Event listeners for price calculation
+document.getElementById('price').addEventListener('input', calculateProfitMargin);
+document.getElementById('cost').addEventListener('input', calculateProfitMargin);
+document.getElementById('sale_price').addEventListener('input', calculateProfitMargin);
+
+// Initialize profit margin calculation
+calculateProfitMargin();
+
+// Handle main image preview
+document.getElementById('main_image').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const placeholder = document.getElementById('mainImagePlaceholder');
+            if (placeholder) placeholder.style.display = 'none';
+
+            const display = document.getElementById('mainImageDisplay');
+            if (display) {
+                display.src = e.target.result;
+            } else {
+                const img = document.createElement('img');
+                img.id = 'mainImageDisplay';
+                img.src = e.target.result;
+                img.className = 'img-fluid rounded';
+                img.style.maxHeight = '120px';
+                document.getElementById('mainImagePreview').appendChild(img);
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Handle gallery image preview
+document.getElementById('gallery_images').addEventListener('change', function(e) {
+    const galleryPreview = document.getElementById('galleryPreview');
+    galleryPreview.innerHTML = ''; // Clear existing
+
+    Array.from(e.target.files).forEach((file, index) => {
+        const col = document.createElement('div');
+        col.className = 'col-md-3 col-sm-4';
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            col.innerHTML = `<img src="${e.target.result}" class="img-fluid rounded" alt="Gallery image ${index + 1}">`;
+            galleryPreview.appendChild(col);
+        };
+        reader.readAsDataURL(file);
+    });
+});
+
+// Functions for managing images
+function removeGalleryImage(imageId) {
+    if (confirm('Are you sure you want to remove this image?')) {
+        // Implementation would depend on your backend route
+        // For now, just remove from preview
+        event.target.closest('.col-md-3').remove();
+    }
+}
+
+function removeManual() {
+    if (confirm('Are you sure you want to remove the product manual?')) {
+        // Implementation would depend on your backend route
+        // For now, hide the manual display
+        event.target.closest('.d-flex').style.display = 'none';
+    }
+}
+</script>

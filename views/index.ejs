@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HStockHub - Premium social media accounts including Instagram, Facebook, Gmail and more. Aged, verified accounts for marketing and business use.">
+  <meta name="keywords" content="HStockHub, social media accounts, Instagram accounts, Facebook accounts, Gmail accounts, aged accounts, verified accounts">
+  <title><%= typeof title !== 'undefined' ? title : 'HStockHub - Premium Social Media Accounts' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-white" href="/">
+        <i class="fas fa-store fa-lg me-2"></i>
+        HStockHub
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+        </ul>
+        <ul class="navbar-nav">
+          <% if (typeof user !== 'undefined' && user) { %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                <%= user.name %>
+                <% if (typeof user.isAdmin !== 'undefined' && user.isAdmin) { %> (Admin)<% } %>
+              </a>
+              <ul class="dropdown-menu">
+                <% if (typeof user.isAdmin !== 'undefined' && user.isAdmin) { %>
+                  <li><a class="dropdown-item" href="/admin">Dashboard</a></li>
+                <% } %>
+                <li><a class="dropdown-item" href="/cart">Cart</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a href="/logout" class="dropdown-item">Logout</a>
+                </li>
+              </ul>
+            </li>
+          <% } else { %>
+            <li class="nav-item"><a class="nav-link btn btn-outline-primary me-2" href="/login">Login</a></li>
+            <li class="nav-item"><a class="nav-link btn btn-primary" href="/register">Sign Up</a></li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-section py-5 mt-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="display-4 fw-bold mb-4">Premium Quality Accounts</h1>
+          <p class="lead mb-4">Get verified Instagram, Facebook, Gmail accounts and more at HStockHub. Aged, trusted accounts perfect for marketing, business growth, and social media management.</p>
+          <div class="mb-4">
+            <i class="fab fa-instagram fa-2x me-3 text-light"></i>
+            <i class="fab fa-facebook fa-2x me-3 text-light"></i>
+            <i class="fas fa-envelope fa-2x me-3 text-light"></i>
+            <span class="fw-bold">+ Many More Social Platforms</span>
+          </div>
+          <a href="#products" class="btn btn-light btn-lg me-3">Browse Accounts</a>
+          <a href="#pricing" class="btn btn-outline-light btn-lg">View Pricing</a>
+        </div>
+        <div class="col-lg-6">
+          <img src="https://via.placeholder.com/600x400?text=HStockHub+Social+Media+Accounts" class="img-fluid rounded" alt="Premium Social Media Accounts">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Categories -->
+  <section id="products" class="products-section py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">Social Media Account Categories</h2>
+
+      <!-- Category Tabs -->
+      <div class="mb-4">
+        <nav>
+          <div class="nav nav-tabs justify-content-center" id="productTabs" role="tablist">
+            <button class="nav-link active" id="gmail-tab" data-bs-toggle="tab" data-bs-target="#gmail" type="button" role="tab">
+              <i class="fas fa-envelope me-2"></i>Gmail
+            </button>
+            <button class="nav-link" id="facebook-tab" data-bs-toggle="tab" data-bs-target="#facebook" type="button" role="tab">
+              <i class="fab fa-facebook me-2"></i>Facebook
+            </button>
+            <button class="nav-link" id="instagram-tab" data-bs-toggle="tab" data-bs-target="#instagram" type="button" role="tab">
+              <i class="fab fa-instagram me-2"></i>Instagram
+            </button>
+            <button class="nav-link" id="tiktok-tab" data-bs-toggle="tab" data-bs-target="#tiktok" type="button" role="tab">
+              <i class="fab fa-tiktok me-2"></i>TikTok
+            </button>
+            <button class="nav-link" id="youtube-tab" data-bs-toggle="tab" data-bs-target="#youtube" type="button" role="tab">
+              <i class="fab fa-youtube me-2"></i>YouTube
+            </button>
+            <button class="nav-link" id="twitter-tab" data-bs-toggle="tab" data-bs-target="#twitter" type="button" role="tab">
+              <i class="fab fa-x-twitter me-2"></i>X (Twitter)
+            </button>
+            <button class="nav-link" id="linkedin-tab" data-bs-toggle="tab" data-bs-target="#linkedin" type="button" role="tab">
+              <i class="fab fa-linkedin me-2"></i>LinkedIn
+            </button>
+            <button class="nav-link" id="telegram-tab" data-bs-toggle="tab" data-bs-target="#telegram" type="button" role="tab">
+              <i class="fab fa-telegram me-2"></i>Telegram
+            </button>
+            <button class="nav-link" id="threads-tab" data-bs-toggle="tab" data-bs-target="#threads" type="button" role="tab">
+              <i class="fab fa-threads me-2"></i>Threads
+            </button>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="tab-content" id="productTabsContent">
+        <!-- Gmail Tab -->
+        <div class="tab-pane fade show active" id="gmail" role="tabpanel">
+          <h3 class="mb-4"><i class="fas fa-envelope text-danger me-2"></i>Gmail Account Packages</h3>
+          <div class="overflow-x-auto">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col"><i class="fas fa-user-circle me-2"></i>Account Type</th>
+                  <th scope="col"><i class="fas fa-calendar-days me-2"></i>Age</th>
+                  <th scope="col"><i class="fas fa-warehouse me-2"></i>In Stock</th>
+                  <th scope="col"><i class="fas fa-tag me-2"></i>Price</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Gmail Basic Account</strong></td>
+                  <td>1 month</td>
+                  <td>35</td>
+                  <td class="fw-bold text-success">$4.99</td>
+                  <td><a href="/checkout?type=gmail_account&platform=gmail&name=Gmail%20Basic%20Account&price=4.99&age=1%20month" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Gmail Verified Account</strong></td>
+                  <td>3 months</td>
+                  <td>28</td>
+                  <td class="fw-bold text-success">$7.99</td>
+                  <td><a href="/checkout?type=gmail_account&platform=gmail&name=Gmail Verified Account&price=7.99&age=3 months" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Gmail Aged Account</strong></td>
+                  <td>6 months</td>
+                  <td>22</td>
+                  <td class="fw-bold text-success">$11.99</td>
+                  <td><a href="/checkout?type=gmail_account&platform=gmail&name=Gmail Aged Account&price=11.99&age=6 months" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Gmail Premium Account</strong></td>
+                  <td>1 year</td>
+                  <td>18</td>
+                  <td class="fw-bold text-success">$18.99</td>
+                  <td><a href="/checkout?type=gmail_account&platform=gmail&name=Gmail Premium Account&price=18.99&age=1 year" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Gmail Business Account</strong></td>
+                  <td>2 years</td>
+                  <td>12</td>
+                  <td class="fw-bold text-success">$29.99</td>
+                  <td><a href="/checkout?type=gmail_account&platform=gmail&name=Gmail Business Account&price=29.99&age=2 years" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Gmail Enterprise Account</strong></td>
+                  <td>3 years</td>
+                  <td>8</td>
+                  <td class="fw-bold text-success">$49.99</td>
+                  <td><a href="/checkout?type=gmail_account&platform=gmail&name=Gmail Enterprise Account&price=49.99&age=3 years" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Gmail Premium Enterprise</strong></td>
+                  <td>4 years</td>
+                  <td>6</td>
+                  <td class="fw-bold text-success">$79.99</td>
+                  <td><a href="/checkout?type=gmail_account&platform=gmail&name=Gmail Premium Enterprise&price=79.99&age=4 years" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Gmail Ultimate Account</strong></td>
+                  <td>5 years</td>
+                  <td>4</td>
+                  <td class="fw-bold text-success">$129.99</td>
+                  <td><a href="/checkout?type=gmail_account&platform=gmail&name=Gmail Ultimate Account&price=129.99&age=5 years" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Gmail Legendary Account</strong></td>
+                  <td>6+ years</td>
+                  <td>2</td>
+                  <td class="fw-bold text-success">$199.99</td>
+                  <td><a href="/checkout?type=gmail_account&platform=gmail&name=Gmail Legendary Account&price=199.99&age=6+ years" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Gmail Legendary Account</strong></td>
+                  <td>7+ years</td>
+                  <td>1</td>
+                  <td class="fw-bold text-success">$349.99</td>
+                  <td><a href="/checkout?type=gmail_account&platform=gmail&name=Gmail%20Legendary%20Account&price=349.99&age=7+ years" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <% products.filter(p => p.category === 'Gmail').forEach(product => { %>
+                <tr>
+                  <td><strong><%= product.name %></strong></td>
+                  <td><%= Math.floor(product.accounts_to_upload || product.quantity) %> months</td>
+                  <td><%= product.accounts_to_upload || product.quantity %></td>
+                  <td class="fw-bold text-success">$<%= product.price %></td>
+                  <td><a href="/checkout?type=<%= product.category.toLowerCase() %>_account&platform=<%= product.category.toLowerCase() %>&name=<%= encodeURIComponent(product.name) %>&price=<%= product.price %>&age=<%= Math.floor(product.accounts_to_upload || product.quantity) %> months" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Facebook Tab -->
+        <div class="tab-pane fade" id="facebook" role="tabpanel">
+          <h3 class="mb-4"><i class="fab fa-facebook text-blue-600 me-2"></i>Facebook Account Packages</h3>
+          <div class="overflow-x-auto">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Account Type</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">In Stock</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Facebook Basic Account</strong></td>
+                  <td>2 months</td>
+                  <td>45</td>
+                  <td class="fw-bold text-success">$5.99</td>
+                  <td><a href="/checkout?type=facebook_account&platform=facebook&name=Facebook%20Basic%20Account&price=5.99&age=2%20months" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Facebook Verified Account</strong></td>
+                  <td>6 months</td>
+                  <td>32</td>
+                  <td class="fw-bold text-success">$9.99</td>
+                  <td><a href="/checkout?type=facebook_account&platform=facebook&name=Facebook%20Verified%20Account&price=9.99&age=6%20months" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Facebook Aged Account</strong></td>
+                  <td>1 year</td>
+                  <td>28</td>
+                  <td class="fw-bold text-success">$14.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Facebook Premium Account</strong></td>
+                  <td>2 years</td>
+                  <td>22</td>
+                  <td class="fw-bold text-success">$24.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Facebook Business Account</strong></td>
+                  <td>3 years</td>
+                  <td>16</td>
+                  <td class="fw-bold text-success">$39.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Facebook Enterprise Account</strong></td>
+                  <td>4 years</td>
+                  <td>12</td>
+                  <td class="fw-bold text-success">$69.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Facebook Premium Enterprise</strong></td>
+                  <td>5 years</td>
+                  <td>8</td>
+                  <td class="fw-bold text-success">$109.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Facebook Ultimate Account</strong></td>
+                  <td>6+ years</td>
+                  <td>5</td>
+                  <td class="fw-bold text-success">$169.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Facebook Legendary Account</strong></td>
+                  <td>7+ years</td>
+                  <td>3</td>
+                  <td class="fw-bold text-success">$249.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Facebook Mythic Account</strong></td>
+                  <td>8+ years</td>
+                  <td>1</td>
+                  <td class="fw-bold text-success">$399.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <% products.filter(p => p.category === 'Facebook').forEach(product => { %>
+                <tr>
+                  <td><strong><%= product.name %></strong></td>
+                  <td><%= Math.floor(product.accounts_to_upload || product.quantity) %> months</td>
+                  <td><%= product.accounts_to_upload || product.quantity %></td>
+                  <td class="fw-bold text-success">$<%= product.price %></td>
+                  <td><a href="/checkout?type=<%= product.category.toLowerCase() %>_account&platform=<%= product.category.toLowerCase() %>&name=<%= encodeURIComponent(product.name) %>&price=<%= product.price %>&age=<%= Math.floor(product.accounts_to_upload || product.quantity) %> months" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Instagram Tab -->
+        <div class="tab-pane fade" id="instagram" role="tabpanel">
+          <h3 class="mb-4"><i class="fab fa-instagram text-pink-500 me-2"></i>Instagram Account Packages</h3>
+          <div class="overflow-x-auto">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Account Type</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">In Stock</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Instagram Basic Account</strong></td>
+                  <td>1 month</td>
+                  <td>40</td>
+                  <td class="fw-bold text-success">$6.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Instagram Verified Account</strong></td>
+                  <td>3 months</td>
+                  <td>35</td>
+                  <td class="fw-bold text-success">$11.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Instagram Aged Account</strong></td>
+                  <td>6 months</td>
+                  <td>30</td>
+                  <td class="fw-bold text-success">$17.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Instagram Premium Account</strong></td>
+                  <td>1 year</td>
+                  <td>25</td>
+                  <td class="fw-bold text-success">$27.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Instagram Business Account</strong></td>
+                  <td>2 years</td>
+                  <td>20</td>
+                  <td class="fw-bold text-success">$47.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Instagram Enterprise Account</strong></td>
+                  <td>3 years</td>
+                  <td>15</td>
+                  <td class="fw-bold text-success">$79.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Instagram Premium Enterprise</strong></td>
+                  <td>4 years</td>
+                  <td>10</td>
+                  <td class="fw-bold text-success">$129.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Instagram Ultimate Account</strong></td>
+                  <td>5 years</td>
+                  <td>7</td>
+                  <td class="fw-bold text-success">$189.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Instagram Legendary Account</strong></td>
+                  <td>6+ years</td>
+                  <td>4</td>
+                  <td class="fw-bold text-success">$279.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Instagram Mythic Account</strong></td>
+                  <td>7+ years</td>
+                  <td>1</td>
+                  <td class="fw-bold text-success">$499.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <% products.filter(p => p.category === 'Instagram').forEach(product => { %>
+                <tr>
+                  <td><strong><%= product.name %></strong></td>
+                  <td><%= Math.floor(product.accounts_to_upload || product.quantity) %> months</td>
+                  <td><%= product.accounts_to_upload || product.quantity %></td>
+                  <td class="fw-bold text-success">$<%= product.price %></td>
+                  <td><a href="/checkout?type=<%= product.category.toLowerCase() %>_account&platform=<%= product.category.toLowerCase() %>&name=<%= encodeURIComponent(product.name) %>&price=<%= product.price %>&age=<%= Math.floor(product.accounts_to_upload || product.quantity) %> months" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TikTok Tab -->
+        <div class="tab-pane fade" id="tiktok" role="tabpanel">
+          <h3 class="mb-4"><i class="fab fa-tiktok text-black me-2"></i>TikTok Account Packages</h3>
+          <div class="overflow-x-auto">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Account Type</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">In Stock</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>TikTok Basic Account</strong></td>
+                  <td>1 month</td>
+                  <td>42</td>
+                  <td class="fw-bold text-success">$5.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>TikTok Verified Account</strong></td>
+                  <td>3 months</td>
+                  <td>38</td>
+                  <td class="fw-bold text-success">$9.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>TikTok Aged Account</strong></td>
+                  <td>6 months</td>
+                  <td>32</td>
+                  <td class="fw-bold text-success">$15.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>TikTok Premium Account</strong></td>
+                  <td>1 year</td>
+                  <td>28</td>
+                  <td class="fw-bold text-success">$25.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>TikTok Business Account</strong></td>
+                  <td>2 years</td>
+                  <td>22</td>
+                  <td class="fw-bold text-success">$45.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>TikTok Enterprise Account</strong></td>
+                  <td>3 years</td>
+                  <td>18</td>
+                  <td class="fw-bold text-success">$75.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>TikTok Premium Enterprise</strong></td>
+                  <td>4 years</td>
+                  <td>12</td>
+                  <td class="fw-bold text-success">$125.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>TikTok Ultimate Account</strong></td>
+                  <td>5 years</td>
+                  <td>8</td>
+                  <td class="fw-bold text-success">$185.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>TikTok Legendary Account</strong></td>
+                  <td>6+ years</td>
+                  <td>5</td>
+                  <td class="fw-bold text-success">$275.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>TikTok Mythic Account</strong></td>
+                  <td>7+ years</td>
+                  <td>2</td>
+                  <td class="fw-bold text-success">$495.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <% products.filter(p => p.category === 'TikTok').forEach(product => { %>
+                <tr>
+                  <td><strong><%= product.name %></strong></td>
+                  <td><%= Math.floor(product.accounts_to_upload || product.quantity) %> months</td>
+                  <td><%= product.accounts_to_upload || product.quantity %></td>
+                  <td class="fw-bold text-success">$<%= product.price %></td>
+                  <td><a href="/checkout?type=<%= product.category.toLowerCase() %>_account&platform=<%= product.category.toLowerCase() %>&name=<%= encodeURIComponent(product.name) %>&price=<%= product.price %>&age=<%= Math.floor(product.accounts_to_upload || product.quantity) %> months" class="btn btn-primary btn-sm">Buy Now</a></td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- YouTube Tab -->
+        <div class="tab-pane fade" id="youtube" role="tabpanel">
+          <h3 class="mb-4"><i class="fab fa-youtube text-red-500 me-2"></i>YouTube Account Packages</h3>
+          <div class="overflow-x-auto">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Account Type</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">In Stock</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>YouTube Basic Account</strong></td>
+                  <td>1 month</td>
+                  <td>38</td>
+                  <td class="fw-bold text-success">$8.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>YouTube Verified Account</strong></td>
+                  <td>3 months</td>
+                  <td>32</td>
+                  <td class="fw-bold text-success">$14.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>YouTube Aged Account</strong></td>
+                  <td>6 months</td>
+                  <td>28</td>
+                  <td class="fw-bold text-success">$22.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>YouTube Premium Account</strong></td>
+                  <td>1 year</td>
+                  <td>24</td>
+                  <td class="fw-bold text-success">$35.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>YouTube Business Account</strong></td>
+                  <td>2 years</td>
+                  <td>18</td>
+                  <td class="fw-bold text-success">$65.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>YouTube Enterprise Account</strong></td>
+                  <td>3 years</td>
+                  <td>14</td>
+                  <td class="fw-bold text-success">$105.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>YouTube Premium Enterprise</strong></td>
+                  <td>4 years</td>
+                  <td>10</td>
+                  <td class="fw-bold text-success">$175.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>YouTube Ultimate Account</strong></td>
+                  <td>5 years</td>
+                  <td>6</td>
+                  <td class="fw-bold text-success">$275.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>YouTube Legendary Account</strong></td>
+                  <td>6+ years</td>
+                  <td>3</td>
+                  <td class="fw-bold text-success">$425.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>YouTube Mythic Account</strong></td>
+                  <td>7+ years</td>
+                  <td>1</td>
+                  <td class="fw-bold text-success">$699.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- X (Twitter) Tab -->
+        <div class="tab-pane fade" id="twitter" role="tabpanel">
+          <h3 class="mb-4"><i class="fab fa-x-twitter text-gray-700 me-2"></i>X (Twitter) Account Packages</h3>
+          <div class="overflow-x-auto">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Account Type</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">In Stock</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>X Basic Account</strong></td>
+                  <td>1 month</td>
+                  <td>40</td>
+                  <td class="fw-bold text-success">$4.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>X Verified Account</strong></td>
+                  <td>3 months</td>
+                  <td>35</td>
+                  <td class="fw-bold text-success">$8.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>X Aged Account</strong></td>
+                  <td>6 months</td>
+                  <td>30</td>
+                  <td class="fw-bold text-success">$12.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>X Premium Account</strong></td>
+                  <td>1 year</td>
+                  <td>25</td>
+                  <td class="fw-bold text-success">$19.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>X Business Account</strong></td>
+                  <td>2 years</td>
+                  <td>20</td>
+                  <td class="fw-bold text-success">$34.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>X Enterprise Account</strong></td>
+                  <td>3 years</td>
+                  <td>15</td>
+                  <td class="fw-bold text-success">$59.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>X Premium Enterprise</strong></td>
+                  <td>4 years</td>
+                  <td>10</td>
+                  <td class="fw-bold text-success">$99.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>X Ultimate Account</strong></td>
+                  <td>5 years</td>
+                  <td>7</td>
+                  <td class="fw-bold text-success">$149.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>X Legendary Account</strong></td>
+                  <td>6+ years</td>
+                  <td>4</td>
+                  <td class="fw-bold text-success">$229.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>X Mythic Account</strong></td>
+                  <td>7+ years</td>
+                  <td>2</td>
+                  <td class="fw-bold text-success">$399.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- LinkedIn Tab -->
+        <div class="tab-pane fade" id="linkedin" role="tabpanel">
+          <h3 class="mb-4"><i class="fab fa-linkedin text-blue-500 me-2"></i>LinkedIn Account Packages</h3>
+          <div class="overflow-x-auto">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Account Type</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">In Stock</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>LinkedIn Basic Account</strong></td>
+                  <td>2 months</td>
+                  <td>36</td>
+                  <td class="fw-bold text-success">$7.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>LinkedIn Verified Account</strong></td>
+                  <td>4 months</td>
+                  <td>30</td>
+                  <td class="fw-bold text-success">$12.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>LinkedIn Aged Account</strong></td>
+                  <td>8 months</td>
+                  <td>26</td>
+                  <td class="fw-bold text-success">$19.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>LinkedIn Premium Account</strong></td>
+                  <td>1 year</td>
+                  <td>22</td>
+                  <td class="fw-bold text-success">$29.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>LinkedIn Business Account</strong></td>
+                  <td>2 years</td>
+                  <td>18</td>
+                  <td class="fw-bold text-success">$54.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>LinkedIn Enterprise Account</strong></td>
+                  <td>3 years</td>
+                  <td>14</td>
+                  <td class="fw-bold text-success">$89.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>LinkedIn Premium Enterprise</strong></td>
+                  <td>4 years</td>
+                  <td>10</td>
+                  <td class="fw-bold text-success">$149.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>LinkedIn Ultimate Account</strong></td>
+                  <td>5 years</td>
+                  <td>6</td>
+                  <td class="fw-bold text-success">$229.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>LinkedIn Legendary Account</strong></td>
+                  <td>6+ years</td>
+                  <td>3</td>
+                  <td class="fw-bold text-success">$349.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>LinkedIn Mythic Account</strong></td>
+                  <td>7+ years</td>
+                  <td>1</td>
+                  <td class="fw-bold text-success">$599.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Telegram Tab -->
+        <div class="tab-pane fade" id="telegram" role="tabpanel">
+          <h3 class="mb-4"><i class="fab fa-telegram text-blue-400 me-2"></i>Telegram Account Packages</h3>
+          <div class="overflow-x-auto">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Account Type</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">In Stock</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Telegram Basic Account</strong></td>
+                  <td>1 month</td>
+                  <td>50</td>
+                  <td class="fw-bold text-success">$3.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Telegram Verified Account</strong></td>
+                  <td>3 months</td>
+                  <td>45</td>
+                  <td class="fw-bold text-success">$6.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Telegram Aged Account</strong></td>
+                  <td>6 months</td>
+                  <td>40</td>
+                  <td class="fw-bold text-success">$9.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Telegram Premium Account</strong></td>
+                  <td>1 year</td>
+                  <td>35</td>
+                  <td class="fw-bold text-success">$15.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Telegram Business Account</strong></td>
+                  <td>2 years</td>
+                  <td>25</td>
+                  <td class="fw-bold text-success">$29.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Telegram Enterprise Account</strong></td>
+                  <td>3 years</td>
+                  <td>20</td>
+                  <td class="fw-bold text-success">$49.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Telegram Premium Enterprise</strong></td>
+                  <td>4 years</td>
+                  <td>15</td>
+                  <td class="fw-bold text-success">$79.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Telegram Ultimate Account</strong></td>
+                  <td>5 years</td>
+                  <td>10</td>
+                  <td class="fw-bold text-success">$129.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Telegram Legendary Account</strong></td>
+                  <td>6+ years</td>
+                  <td>5</td>
+                  <td class="fw-bold text-success">$199.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Telegram Mythic Account</strong></td>
+                  <td>7+ years</td>
+                  <td>2</td>
+                  <td class="fw-bold text-success">$349.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Threads Tab -->
+        <div class="tab-pane fade" id="threads" role="tabpanel">
+          <h3 class="mb-4"><i class="fab fa-threads text-gray-600 me-2"></i>Threads Account Packages</h3>
+          <div class="overflow-x-auto">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Account Type</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">In Stock</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Threads Basic Account</strong></td>
+                  <td>2 weeks</td>
+                  <td>55</td>
+                  <td class="fw-bold text-success">$4.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Threads Verified Account</strong></td>
+                  <td>1 month</td>
+                  <td>48</td>
+                  <td class="fw-bold text-success">$8.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Threads Aged Account</strong></td>
+                  <td>2 months</td>
+                  <td>42</td>
+                  <td class="fw-bold text-success">$12.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Threads Premium Account</strong></td>
+                  <td>3 months</td>
+                  <td>38</td>
+                  <td class="fw-bold text-success">$18.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Threads Business Account</strong></td>
+                  <td>6 months</td>
+                  <td>32</td>
+                  <td class="fw-bold text-success">$32.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Threads Enterprise Account</strong></td>
+                  <td>1 year</td>
+                  <td>26</td>
+                  <td class="fw-bold text-success">$54.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Threads Premium Enterprise</strong></td>
+                  <td>18 months</td>
+                  <td>20</td>
+                  <td class="fw-bold text-success">$89.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Threads Ultimate Account</strong></td>
+                  <td>2+ years</td>
+                  <td>14</td>
+                  <td class="fw-bold text-success">$139.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Threads Legendary Account</strong></td>
+                  <td>3+ years</td>
+                  <td>8</td>
+                  <td class="fw-bold text-success">$219.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Threads Mythic Account</strong></td>
+                  <td>4+ years</td>
+                  <td>3</td>
+                  <td class="fw-bold text-success">$399.99</td>
+                  <td><button class="btn btn-primary btn-sm">Buy Now</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Features Section -->
+  <section id="features" class="features-section py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">Why Choose HStockHub?</h2>
+      <div class="row g-4">
+        <div class="col-md-4 text-center">
+          <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+          <h5>Verified Accounts</h5>
+          <p>All accounts are phone/email verified with complete ownership transfer guarantee.</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <i class="fas fa-history fa-3x text-primary mb-3"></i>
+          <h5>Aged Accounts</h5>
+          <p>Choose from 1-5+ year old accounts with established trust scores and history.</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <i class="fas fa-headset fa-3x text-primary mb-3"></i>
+          <h5>24/7 Support</h5>
+          <p>Dedicated support team ready to help with account transfers and warranty claims.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Section -->
+  <section id="reviews" class="reviews-section bg-light py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">What Our Customers Say</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <div class="d-flex mb-3">
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+              </div>
+              <p class="card-text">"Perfect Instagram account for my marketing needs. Aged and verified exactly as promised!"</p>
+              <h6 class="card-subtitle text-muted">Sarah Johnson, Marketing Manager</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <div class="d-flex mb-3">
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+              </div>
+              <p class="card-text">"Fast delivery and great support. Got my Facebook business account set up perfectly!"</p>
+              <h6 class="card-subtitle text-muted">Mike Chen, Business Owner</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <div class="d-flex mb-3">
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+              </div>
+              <p class="card-text">"Professional service from start to finish. The warranty gives me peace of mind."</p>
+              <h6 class="card-subtitle text-muted">Lisa Rodriguez, Social Media Consultant</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="faq-section py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">Frequently Asked Questions</h2>
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">What platforms do you offer accounts for?</button>
+          </h2>
+          <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">We provide premium accounts for Instagram, Facebook, Gmail, Twitter, TikTok, LinkedIn, and many other popular social media platforms. All accounts are verified and ready for immediate use.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">How old are your accounts?</button>
+          </h2>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Our accounts range from 1-5+ years old. Premium accounts are aged 3-5 years with established trust scores and complete account histories that platforms love.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Do you offer warranties?</button>
+          </h2>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Yes! Basic accounts come with 30-day replacement warranty, Premium accounts with 90 days, and Business packages with 1-year full support. We're committed to your satisfaction.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">How does the account transfer work?</button>
+          </h2>
+          <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">After purchase, our team will securely transfer full ownership to you via password reset/change. We provide complete access details and 24/7 support during the transfer process.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer bg-dark text-white py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h5>HStockHub</h5>
+          <p>Your trusted source for premium social media accounts worldwide.</p>
+          <div class="social-links">
+            <a href="https://t.me/hstockhub" class="text-white me-3" target="_blank"><i class="fab fa-telegram"></i></a>
+            <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="/about" class="text-white text-decoration-none">About Us</a></li>
+            <li><a href="#features" class="text-white text-decoration-none">Features</a></li>
+            <li><a href="#pricing" class="text-white text-decoration-none">Pricing</a></li>
+            <li><a href="#contact" class="text-white text-decoration-none">Support</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Legal</h5>
+          <ul class="list-unstyled">
+            <li><a href="/privacy" class="text-white text-decoration-none">Privacy Policy</a></li>
+            <li><a href="/terms" class="text-white text-decoration-none">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="my-4">
+      <div class="text-center">
+        <p>&copy; 2025 HStockHub. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

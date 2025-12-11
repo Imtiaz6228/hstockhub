@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - HStockHub</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-dark fixed-top shadow-sm" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-white" href="/">
+        <i class="fas fa-store fa-lg me-2"></i>
+        HStockHub
+      </a>
+      <div class="text-white">
+        <span class="me-3"><i class="fas fa-shopping-cart me-1"></i>Checkout</span>
+        <a href="/" class="btn btn-outline-light btn-sm">← Back to Store</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Checkout Section -->
+  <section class="checkout-section py-5 mt-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-lg">
+            <div class="card-body p-5">
+              <h2 class="card-title text-center mb-4">
+                <i class="fas fa-credit-card text-primary me-2"></i>
+                Complete Your Purchase
+              </h2>
+
+              <% if (typeof error !== 'undefined' && error) { %>
+                <div class="alert alert-danger" role="alert">
+                  <i class="fas fa-exclamation-triangle me-2"></i>
+                  <%= error %>
+                </div>
+              <% } %>
+
+              <% if (typeof success !== 'undefined' && success) { %>
+                <div class="alert alert-success" role="alert">
+                  <i class="fas fa-check-circle me-2"></i>
+                  <%= success %>
+                </div>
+              <% } %>
+
+              <!-- Order Summary -->
+              <div class="card border-primary mb-4">
+                <div class="card-header bg-primary text-white">
+                  <h5 class="card-title mb-0">
+                    <i class="fas fa-shopping-bag me-2"></i>Order Summary
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p><strong>Product:</strong> <span id="productName">Loading...</span></p>
+                      <p><strong>Account Age:</strong> <span id="productAge">Loading...</span></p>
+                    </div>
+                    <div class="col-md-6">
+                      <p><strong>Platform:</strong> <span id="productPlatform">Loading...</span></p>
+                      <p><strong>Price per unit:</strong> $<span id="productPrice">0.00</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <form id="checkoutForm" action="/checkout/process" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="product_type" id="productType" value="">
+                <input type="hidden" name="product_platform" id="productPlatform" value="">
+                <input type="hidden" name="product_name" id="productName" value="">
+                <input type="hidden" name="product_price" id="productPrice" value="">
+                <input type="hidden" name="product_age" id="productAge" value="">
+
+                <!-- Contact Information -->
+                <h4 class="mb-3"><i class="fas fa-address-book me-2 text-primary"></i>Contact Information</h4>
+
+                <div class="row mb-4">
+                  <div class="col-md-6 mb-3">
+                    <label for="telegramId" class="form-label">
+                      <i class="fab fa-telegram text-blue-400 me-1"></i>
+                      Telegram ID *
+                    </label>
+                    <input type="text" class="form-control" id="telegramId" name="telegram_id"
+                           placeholder="@telegram_username or 123456789" required>
+                    <small class="form-text text-muted">Your Telegram username or numeric ID where we'll deliver the account</small>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">
+                      <i class="fas fa-envelope me-1 text-primary"></i>
+                      Email Address *
+                    </label>
+                    <input type="email" class="form-control" id="email" name="email"
+                           placeholder="your@email.com" required>
+                    <small class="form-text text-muted">We'll send order confirmation and account delivery</small>
+                  </div>
+                </div>
+
+                <!-- Quantity Selection -->
+                <h4 class="mb-3"><i class="fas fa-hashtag me-2 text-primary"></i>Quantity</h4>
+
+                <div class="row mb-4">
+                  <div class="col-md-4 mb-3">
+                    <label for="quantity" class="form-label">
+                      <i class="fas fa-calculator me-1 text-success"></i>
+                      Number of Accounts *
+                    </label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" required min="1" placeholder="Enter quantity" onchange="calculateTotal()">
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">
+                      <i class="fas fa-dollar-sign me-1 text-success"></i>
+                      Price per Account
+                    </label>
+                    <input type="text" class="form-control bg-light" id="pricePerUnit" readonly value="$0.00">
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">
+                      <i class="fas fa-hand-holding-usd me-1 text-success"></i>
+                      Total Amount
+                    </label>
+                    <input type="text" class="form-control bg-light fw-bold text-success" id="totalAmount" readonly value="$0.00">
+                  </div>
+                </div>
+
+                <!-- Payment Method -->
+                <h4 class="mb-3"><i class="fas fa-wallet me-2 text-primary"></i>Payment Method</h4>
+
+                <div class="mb-4">
+                  <label for="paymentMethod" class="form-label">
+                    <i class="fab fa-bitcoin me-1 text-warning"></i>
+                    Select Cryptocurrency *
+                  </label>
+                  <select class="form-select" id="paymentMethod" name="payment_method" required onchange="updatePaymentDetails()">
+                    <option value="">Choose payment method</option>
+                    <option value="btc">Bitcoin (BTC)</option>
+                    <option value="eth">Ethereum (ETH)</option>
+                    <option value="usdt">Tether (USDT)</option>
+                    <option value="bnb">Binance Coin (BNB)</option>
+                    <option value="ltc">Litecoin (LTC)</option>
+                  </select>
+                </div>
+
+                <!-- Crypto Payment Instructions -->
+                <div id="paymentInstructions" class="card bg-light mb-4" style="display: none;">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <i class="fas fa-info-circle me-2"></i>Payment Instructions
+                    </h5>
+                    <div id="cryptoDetails">
+                      <!-- Payment details will be populated by JavaScript -->
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Transaction ID -->
+                <div class="mb-4">
+                  <label for="txid" class="form-label">
+                    <i class="fas fa-hashtag me-1 text-primary"></i>
+                    Transaction ID (TXID) *
+                  </label>
+                  <input type="text" class="form-control" id="txid" name="txid"
+                         placeholder="Enter your crypto transaction hash/ID" required>
+                  <small class="form-text text-muted">
+                    After sending payment, paste the transaction hash/ID from your wallet
+                  </small>
+                </div>
+
+                <!-- Terms Acceptance -->
+                <div class="mb-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                    <label class="form-check-label" for="termsCheck">
+                      I agree to the <a href="/terms" target="_blank">Terms of Service</a> and understand that
+                      all sales are final. Orders are processed within 24-48 hours after payment confirmation.
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                  <button type="submit" class="btn btn-success btn-lg px-5 py-3">
+                    <i class="fas fa-paper-plane me-2"></i>
+                    Submit Order
+                  </button>
+
+                  <p class="mt-3 text-muted">
+                    <i class="fas fa-shield-alt me-1"></i>
+                    All payments are secure. Your information is encrypted and stored safely.
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer bg-dark text-white py-5 mt-5">
+    <div class="container text-center">
+      <p>&copy; 2025 HStockHub. Secure crypto payment platform for premium social media accounts.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Product data from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const productType = urlParams.get('type');
+    const productPlatform = urlParams.get('platform');
+    const productName = urlParams.get('name');
+    const productPrice = parseFloat(urlParams.get('price') || '0');
+    const productAge = urlParams.get('age');
+
+    // Populate form with product data
+    document.getElementById('productType').value = productType || '';
+    document.getElementById('productPlatform').value = productPlatform || '';
+    document.getElementById('productName').value = productName || '';
+    document.getElementById('productPrice').value = productPrice.toFixed(2);
+    document.getElementById('productAge').value = productAge || '';
+
+    // Update display
+    document.getElementById('productName').textContent = productName || 'Unknown Product';
+    document.getElementById('productPlatform').textContent = productPlatform || 'Unknown';
+    document.getElementById('productAge').textContent = productAge || 'Unknown';
+    document.getElementById('productPrice').textContent = productPrice.toFixed(2);
+    document.getElementById('pricePerUnit').value = '$' + productPrice.toFixed(2);
+
+    // Calculate total when quantity changes
+    function calculateTotal() {
+      const quantity = parseInt(document.getElementById('quantity').value) || 0;
+      const total = quantity * productPrice;
+      document.getElementById('totalAmount').value = '$' + total.toFixed(2);
+    }
+
+    // Update crypto payment details
+    function updatePaymentDetails() {
+      const paymentMethod = document.getElementById('paymentMethod').value;
+      const instructionsDiv = document.getElementById('paymentInstructions');
+      const detailsDiv = document.getElementById('cryptoDetails');
+
+      if (paymentMethod) {
+        instructionsDiv.style.display = 'block';
+
+        const cryptoData = {
+          btc: {
+            name: 'Bitcoin',
+            address: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
+            network: 'BTC Network',
+            symbol: '₿'
+          },
+          eth: {
+            name: 'Ethereum',
+            address: '0x742d35CcE4B0910C5A5FBf1b48C54b0A7FBC5B2b',
+            network: 'ERC20 / BEP20',
+            symbol: 'Ξ'
+          },
+          usdt: {
+            name: 'Tether (USDT)',
+            address: '0x742d35CcE4B0910C5A5FBf1b48C54b0A7FBC5B2b',
+            network: 'ERC20 / BEP20',
+            symbol: '₮'
+          },
+          bnb: {
+            name: 'Binance Coin',
+            address: '0x742d35CcE4B0910C5A5FBf1b48C54b0A7FBC5B2b',
+            network: 'BEP20',
+            symbol: 'BNB'
+          },
+          ltc: {
+            name: 'Litecoin',
+            address: 'ltc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
+            network: 'LTC Network',
+            symbol: 'Ł'
+          }
+        };
+
+        const data = cryptoData[paymentMethod];
+        const quantity = parseInt(document.getElementById('quantity').value) || 1;
+        const amount = quantity * productPrice;
+
+        detailsDiv.innerHTML = `
+          <h6>Send exactly <strong>${amount.toFixed(2)} USD worth</strong> of ${data.name} to:</h6>
+          <div class="alert alert-info">
+            <strong>Address:</strong> <code>${data.address}</code>
+            <button class="btn btn-sm btn-outline-primary ms-2" onclick="navigator.clipboard.writeText('${data.address}')">
+              <i class="fas fa-copy"></i> Copy
+            </button>
+          </div>
+          <p><strong>Network:</strong> ${data.network}</p>
+          <p class="text-warning"><i class="fas fa-exclamation-triangle me-1"></i>Send the correct amount only. No refunds available.</p>
+          <small class="text-muted">Exchange rates subject to market conditions.</small>
+        `;
+      } else {
+        instructionsDiv.style.display = 'none';
+      }
+    }
+
+    // Initialize
+    calculateTotal();
+
+    // Form validation
+    document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+      const telegramId = document.getElementById('telegramId').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const quantity = document.getElementById('quantity').value;
+      const paymentMethod = document.getElementById('paymentMethod').value;
+      const txid = document.getElementById('txid').value.trim();
+      const termsCheck = document.getElementById('termsCheck').checked;
+
+      if (!telegramId || !email || !quantity || !paymentMethod || !txid || !termsCheck) {
+        e.preventDefault();
+        alert('Please fill in all required fields and accept the terms.');
+        return false;
+      }
+
+      if (confirm('Are you sure you want to submit this order? Payment must be sent to the provided crypto address.')) {
+        return true;
+      } else {
+        e.preventDefault();
+        return false;
+      }
+    });
+  </script>
+</body>
+</html>

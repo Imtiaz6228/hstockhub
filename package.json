@@ -1,0 +1,39 @@
+{
+  "name": "storehstockhub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "production": "NODE_ENV=production pm2 start server.js --name hstockhub",
+    "migrate": "node migrate.js",
+    "seed": "node seed.js",
+    "test": "jest",
+    "pm2:start": "pm2 start server.js --name hstockhub",
+    "pm2:restart": "pm2 restart hstockhub",
+    "pm2:stop": "pm2 stop hstockhub",
+    "pm2:logs": "pm2 logs hstockhub"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "compression": "^1.8.1",
+    "cookie-parser": "^1.4.7",
+    "csurf": "^1.11.0",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-rate-limit": "^8.2.1",
+    "express-session": "^1.18.2",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.11",
+    "pg": "^8.16.3",
+    "stripe": "^20.0.0"
+  }
+}

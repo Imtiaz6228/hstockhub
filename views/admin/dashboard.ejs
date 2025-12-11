@@ -1,0 +1,204 @@
+<div class="row g-4 mb-5">
+    <!-- Total Revenue -->
+    <div class="col-lg-3 col-md-6">
+        <div class="card bg-gradient-primary text-white">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h5 class="mb-1">Total Revenue</h5>
+                        <h3 class="mb-0">$<%= stats.monthlyRevenue.toFixed(2) %></h3>
+                        <small>Current Month</small>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-dollar-sign fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0">
+                <small class="text-white-50">Daily: $<%= stats.dailyRevenue.toFixed(2) %></small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Orders Today -->
+    <div class="col-lg-3 col-md-6">
+        <div class="card bg-gradient-success text-white">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h5 class="mb-1">Orders Today</h5>
+                        <h3 class="mb-0"><%= stats.todayOrders %></h3>
+                        <small>Recent Activity</small>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-shopping-cart fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0">
+                <small class="text-white-50">7 Days: <%= stats.sevenDayOrders %></small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Orders -->
+    <div class="col-lg-3 col-md-6">
+        <div class="card bg-gradient-warning text-white">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h5 class="mb-1">Pending Orders</h5>
+                        <h3 class="mb-0"><%= stats.pendingOrders %></h3>
+                        <small>Awaiting Action</small>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-clock fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0">
+                <small class="text-white-50">Delivered: <%= stats.deliveredOrders %></small>
+            </div>
+        </div>
+    </div>
+
+    <!-- 30-Day Orders -->
+    <div class="col-lg-3 col-md-6">
+        <div class="card bg-gradient-info text-white">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h5 class="mb-1">30-Day Orders</h5>
+                        <h3 class="mb-0"><%= stats.thirtyDayOrders %></h3>
+                        <small>Month Overview</small>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-calendar fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0">
+                <small class="text-white-50">Track Performance</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Low Stock Alerts -->
+<div class="row g-4 mb-5">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-exclamation-triangle text-warning me-2"></i>Low Stock Alerts</h5>
+            </div>
+            <div class="card-body">
+                <% if (lowStockAlerts && lowStockAlerts.length > 0) { %>
+                    <div class="list-group">
+                        <% lowStockAlerts.forEach(product => { %>
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1"><%= product.name %></h6>
+                                    <small class="text-muted">ID: <%= product.product_id %></small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-danger">Stock: <%= product.quantity %></span>
+                                    <br><small class="text-muted">Min: <%= product.min_stock_alert %></small>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <p class="text-muted mb-0"><i class="fas fa-check-circle text-success me-1"></i>All products are well-stocked.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Products -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-plus-circle text-primary me-2"></i>Recent Products</h5>
+            </div>
+            <div class="card-body">
+                <% if (recentProducts && recentProducts.length > 0) { %>
+                    <div class="list-group">
+                        <% recentProducts.slice(0, 5).forEach(product => { %>
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1"><%= product.name %></h6>
+                                    <small class="text-muted">$<%= product.price %> • Stock: <%= product.quantity %></small>
+                                </div>
+                                <span class="badge bg-<%= product.status === 'active' ? 'success' : product.status === 'draft' ? 'secondary' : 'warning' %>">
+                                    <%= product.status %>
+                                </span>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <p class="text-muted mb-0"><i class="fas fa-info-circle text-info me-1"></i>No recent products found.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Latest Orders -->
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Latest Orders</h5>
+        <a href="/admin/orders" class="btn btn-sm btn-outline-primary">View All Orders</a>
+    </div>
+    <div class="card-body">
+        <% if (stats.recentOrders && stats.recentOrders.length > 0) { %>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Email</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% stats.recentOrders.forEach(order => { %>
+                            <tr>
+                                <td>#<%= order.order_id %></td>
+                                <td><%= order.customer_name || 'Guest' %></td>
+                                <td><%= order.email || order.guest_email || '-' %></td>
+                                <td>$<%= order.total_amount %></td>
+                                <td>
+                                    <span class="badge bg-<%
+                                        const status = order.status;
+                                        if (status === 'delivered') { %>success<%
+                                        } else if (status === 'pending') { %>warning<%
+                                        } else if (status === 'shipped') { %>info<%
+                                        } else { %>secondary<% } %>">
+                                        <%= status %>
+                                    </span>
+                                </td>
+                                <td><%= new Date(order.created_at).toLocaleDateString() %></td>
+                                <td>
+                                    <a href="/admin/orders/<%= order.order_id %>" class="btn btn-sm btn-outline-primary">View</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        <% } else { %>
+            <p class="text-muted text-center mb-0"><i class="fas fa-info-circle me-1"></i>No orders found.</p>
+        <% } %>
+    </div>
+</div>
+
+<style>
+    .bg-gradient-primary { background: linear-gradient(45deg, #007bff, #0056b3); }
+    .bg-gradient-success { background: linear-gradient(45deg, #28a745, #1e7e34); }
+    .bg-gradient-warning { background: linear-gradient(45deg, #ffc107, #e0a800); }
+    .bg-gradient-info { background: linear-gradient(45deg, #17a2b8, #138496); }
+</style>

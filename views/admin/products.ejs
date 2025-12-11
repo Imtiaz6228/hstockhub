@@ -1,0 +1,428 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">Product Management</h4>
+    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+        <i class="fas fa-plus me-2"></i>Add New Product
+    </a>
+</div>
+
+<!-- Alerts -->
+<% if (typeof req !== 'undefined' && req.query && req.query.error) { %>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="fas fa-exclamation-triangle me-2"></i><%= req.query.error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+<% } %>
+<% if (typeof req !== 'undefined' && req.query && req.query.success) { %>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="fas fa-check-circle me-2"></i><%= req.query.success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+<% } %>
+
+<!-- Search and Filters -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="GET" class="row g-3">
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="search" placeholder="Search products..." value="<%= search || '' %>">
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" name="category">
+                    <option value="">All Categories</option>
+                    <option value="Subscription" <%= category === 'Subscription' ? 'selected' : '' %>>Subscription</option>
+                    <option value="Tools" <%= category === 'Tools' ? 'selected' : '' %>>Tools</option>
+                    <option value="Enterprise" <%= category === 'Enterprise' ? 'selected' : '' %>>Enterprise</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" name="status">
+                    <option value="">All Status</option>
+                    <option value="active" <%= status === 'active' ? 'selected' : '' %>>Active</option>
+                    <option value="draft" <%= status === 'draft' ? 'selected' : '' %>>Draft</option>
+                    <option value="out_of_stock" <%= status === 'out_of_stock' ? 'selected' : '' %>>Out of Stock</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" name="sort">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="price_high">Price: High to Low</option>
+                    <option value="price_low">Price: Low to High</option>
+                    <option value="stock_low">Stock: Low to High</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-outline-primary w-100">Apply Filters</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bulk Actions -->
+<form id="bulkActionForm" method="POST" action="/admin/products/bulk">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <span><strong><%= products.length %></strong> Products</span>
+                <div class="d-flex gap-2">
+                    <select class="form-select form-select-sm" name="bulk_action">
+                        <option value="">Bulk Actions</option>
+                        <option value="activate">Set as Active</option>
+                        <option value="draft">Set as Draft</option>
+                        <option value="delete">Delete</option>
+                    </select>
+                    <button type="submit" class="btn btn-sm btn-outline-secondary" onclick="return confirm('Are you sure?')">Apply</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th><input type="checkbox" class="form-check-input" id="selectAll"></th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Sale Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% products.forEach(product => { %>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input" name="product_ids[]" value="<%= product.product_id %>"></td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <% if (product.image_url) { %>
+                                            <img src="<%= product.image_url %>" alt="<%= product.name %>" class="rounded me-2" style="width: 40px; height: 40px; object-fit: cover;">
+                                        <% } %>
+                                        <div>
+                                            <h6 class="mb-0"><%= product.name %></h6>
+                                            <small class="text-muted"><%= product.category || '-' %></small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>$<%= product.price %></td>
+                                <td>
+                                    <% if (product.sale_price) { %>
+                                        <span class="text-success">$<%= product.sale_price %></span>
+                                    <% } else { %>
+                                        <span class="text-muted">-</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% if (product.quantity <= product.min_stock_alert) { %>
+                                        <span class="badge bg-danger"><%= product.quantity %></span>
+                                    <% } else if (product.quantity <= 10) { %>
+                                        <span class="badge bg-warning"><%= product.quantity %></span>
+                                    <% } else { %>
+                                        <span class="badge bg-success"><%= product.quantity %></span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% const status = product.status; %>
+                                    <span class="badge bg-<%
+                                        if (status === 'active') { %>success<%
+                                        } else if (status === 'draft') { %>secondary<%
+                                        } else if (status === 'out_of_stock') { %>danger<%
+                                        } else if (status === 'deleted') { %>dark<%
+                                        } else { %>primary<% } %>">
+                                        <%= status.replace('_', ' ').toUpperCase() %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="/admin/products/<%= product.product_id %>/edit" class="btn btn-outline-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-outline-info" onclick="viewStockHistory(<%= product.product_id %>)">
+                                            <i class="fas fa-history"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-outline-danger" onclick="deleteProduct(<%= product.product_id %>, '<%= product.name %>')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }) %>
+                        <% if (products.length === 0) { %>
+                            <tr>
+                                <td colspan="7" class="text-center py-4">
+                                    <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                                    <p class="text-muted">No products found</p>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Pagination -->
+<% if (totalPages > 1) { %>
+    <nav class="mt-3">
+        <ul class="pagination justify-content-center">
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                    <a class="page-link" href="?page=<%= i %>&search=<%= search || '' %>&category=<%= category || '' %>&status=<%= status || '' %>"><%= i %></a>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
+<% } %>
+
+<!-- Add Product Modal -->
+<div class="modal fade" id="addProductModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="/admin/products" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label">Product Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="category" class="form-label">Category *</label>
+                            <select class="form-select" id="category" name="category" required>
+                                <optgroup label="Social Media">
+                                    <option value="Instagram">Instagram</option>
+                                    <option value="Facebook">Facebook</option>
+                                    <option value="Twitter/X">Twitter/X</option>
+                                    <option value="TikTok">TikTok</option>
+                                    <option value="LinkedIn">LinkedIn</option>
+                                    <option value="YouTube">YouTube</option>
+                                    <option value="Snapchat">Snapchat</option>
+                                    <option value="Pinterest">Pinterest</option>
+                                    <option value="Reddit">Reddit</option>
+                                    <option value="Discord">Discord</option>
+                                    <option value="Telegram">Telegram</option>
+                                    <option value="WhatsApp">WhatsApp</option>
+                                    <option value="Tumblr">Tumblr</option>
+                                    <option value="Vimeo">Vimeo</option>
+                                    <option value="Twitch">Twitch</option>
+                                </optgroup>
+                                <optgroup label="Email Providers">
+                                    <option value="Gmail">Gmail</option>
+                                    <option value="Outlook">Outlook/Hotmail</option>
+                                    <option value="Yahoo">Yahoo Mail</option>
+                                    <option value="ProtonMail">Proton Mail</option>
+                                    <option value="iCloud">iCloud Mail</option>
+                                    <option value="AOL">AOL Mail</option>
+                                    <option value="Zoho">Zoho Mail</option>
+                                    <option value="Yandex">Yandex Mail</option>
+                                    <option value="Mail.ru">Mail.ru</option>
+                                    <option value="GMX">GMX Mail</option>
+                                    <option value="Tutanota">Tutanota</option>
+                                    <option value="Rackspace">Rackspace</option>
+                                    <option value="FastMail">FastMail</option>
+                                    <option value="Mailchimp">Mailchimp</option>
+                                    <option value="SendGrid">SendGrid</option>
+                                </optgroup>
+                                <optgroup label="Other">
+                                    <option value="Subscription">Subscription Services</option>
+                                    <option value="Tools">Digital Tools</option>
+                                    <option value="Enterprise">Enterprise Accounts</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="price" class="form-label">Price *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="price" name="price" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="min_stock_alert" class="form-label">Min Stock Alert</label>
+                            <input type="number" class="form-control" id="min_stock_alert" name="min_stock_alert" min="0" value="5">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="accounts_to_upload" class="form-label">Number of Accounts to Upload *</label>
+                            <input type="number" class="form-control" id="accounts_to_upload" name="accounts_to_upload" min="1" required placeholder="298">
+                            <small class="text-muted">Enter how many accounts you want to upload</small>
+                        </div>
+                        <div class="col-12">
+                            <label for="description" class="form-label">Description *</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label for="tags" class="form-label">Tags</label>
+                            <input type="text" class="form-control" id="tags" name="tags" placeholder="aged, verified, premium">
+                        </div>
+
+                        <!-- Upload Methods -->
+                        <div class="col-12">
+                            <label class="form-label">Upload Method *</label>
+                            <div class="d-flex gap-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="upload_method" id="upload_text" value="text" checked>
+                                    <label class="form-check-label" for="upload_text">
+                                        Copy & Paste Accounts
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="upload_method" id="upload_file" value="file">
+                                    <label class="form-check-label" for="upload_file">
+                                        Upload File
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text Area for Copy/Paste -->
+                        <div class="col-12" id="text_upload_container">
+                            <label for="accounts_text" class="form-label">Account Credentials (one per line) *</label>
+                            <textarea class="form-control" id="accounts_text" name="accounts_text" rows="8"
+                                      placeholder="email@example.com:password
+account2@gmail.com:myPass123
+username:password123
+etc..."></textarea>
+                            <small class="text-muted">Format: email:password or username:password (one account per line)</small>
+                        </div>
+
+                        <!-- File Upload -->
+                        <div class="col-12" id="file_upload_container" style="display: none;">
+                            <label for="accounts_file" class="form-label">Accounts File *</label>
+                            <input type="file" class="form-control" id="accounts_file" name="accounts_file" accept=".txt,.csv,.json">
+                            <small class="text-muted">Supported formats: .txt (email:password format), .csv, .json</small>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="status" name="status">
+                                <option value="draft">Draft</option>
+                                <option value="active">Active</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="image" class="form-label">Product Image</label>
+                            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete "<span id="deleteProductName"></span>"?</p>
+                <div class="alert alert-warning">
+                    <small>This action cannot be undone.</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="product_id" id="deleteProductId">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Select all checkbox
+    document.getElementById('selectAll').addEventListener('change', function() {
+        const checkboxes = document.querySelectorAll('input[name="product_ids[]"]');
+        checkboxes.forEach(cb => cb.checked = this.checked);
+    });
+
+    // Delete product function
+    function deleteProduct(productId, productName) {
+        document.getElementById('deleteProductId').value = productId;
+        document.getElementById('deleteProductName').textContent = productName;
+        document.getElementById('deleteForm').action = `/admin/products/${productId}/delete`;
+        const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        deleteModal.show();
+    }
+
+    // View stock history (placeholder)
+    function viewStockHistory(productId) {
+        window.open(`/admin/products/${productId}/stock-history`, '_blank');
+    }
+
+    // Bulk actions confirmation
+    document.getElementById('bulkActionForm').addEventListener('submit', function(e) {
+        const selectedAction = this.bulk_action.value;
+        if (!selectedAction) {
+            e.preventDefault();
+            alert('Please select an action');
+            return;
+        }
+
+        const checkedBoxes = document.querySelectorAll('input[name="product_ids[]"]:checked');
+        if (checkedBoxes.length === 0) {
+            e.preventDefault();
+            alert('Please select at least one product');
+            return;
+        }
+
+        if (selectedAction === 'delete') {
+            if (!confirm(`Are you sure you want to delete ${checkedBoxes.length} product(s)?`)) {
+                e.preventDefault();
+            }
+        }
+    });
+
+    // Upload method toggle
+    const uploadMethodRadios = document.querySelectorAll('input[name="upload_method"]');
+    const textUploadContainer = document.getElementById('text_upload_container');
+    const fileUploadContainer = document.getElementById('file_upload_container');
+    const accountsText = document.getElementById('accounts_text');
+    const accountsFile = document.getElementById('accounts_file');
+
+    // Initial setup
+    updateUploadMethod();
+
+    // Add event listeners to radio buttons
+    uploadMethodRadios.forEach(radio => {
+        radio.addEventListener('change', updateUploadMethod);
+    });
+
+    function updateUploadMethod() {
+        const selectedMethod = document.querySelector('input[name="upload_method"]:checked').value;
+
+        if (selectedMethod === 'text') {
+            textUploadContainer.style.display = 'block';
+            fileUploadContainer.style.display = 'none';
+            // Make text area required and file optional
+            accountsText.required = true;
+            accountsFile.required = false;
+        } else {
+            textUploadContainer.style.display = 'none';
+            fileUploadContainer.style.display = 'block';
+            // Make file required and text optional
+            accountsText.required = false;
+            accountsFile.required = true;
+        }
+    }
+
+    // Temp: disable form validation for now
+    console.log('JavaScript loaded successfully');
+</script>
