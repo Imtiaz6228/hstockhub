@@ -11,6 +11,144 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Modern Dropdown Styles */
+    .modern-dropdown {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      min-width: 280px;
+      margin-top: 8px;
+    }
+
+    .modern-dropdown .dropdown-item {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin: 2px 8px;
+      transition: all 0.2s ease;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .modern-dropdown .dropdown-item:hover {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      transform: translateX(4px);
+    }
+
+    .modern-dropdown .dropdown-header {
+      color: #667eea;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 8px 16px;
+      margin: 4px 8px 2px 8px;
+      border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+    }
+
+    .modern-dropdown .dropdown-divider {
+      margin: 8px 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    /* Modern Navigation Styles */
+    .modern-nav {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.95) !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-link-modern {
+      position: relative;
+      color: #333 !important;
+      font-weight: 500;
+      padding: 8px 16px !important;
+      margin: 0 4px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link-modern:hover {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .nav-link-modern::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-link-modern:hover::after {
+      width: 80%;
+    }
+
+    /* Mobile Navigation Improvements */
+    @media (max-width: 991.98px) {
+      .modern-nav {
+        background: rgba(255, 255, 255, 0.98) !important;
+      }
+
+      .modern-dropdown {
+        background: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        min-width: 250px;
+      }
+
+      .modern-dropdown .dropdown-item {
+        padding: 14px 18px;
+        margin: 2px 4px;
+      }
+
+      .navbar-collapse {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        border-radius: 0 0 12px 12px;
+        padding: 1rem;
+        margin-top: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    /* Tab improvements for mobile */
+    @media (max-width: 768px) {
+      #productTabs {
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+
+      #productTabs button.nav-link {
+        font-size: 0.75rem;
+        padding: 8px 12px;
+        min-width: auto;
+        flex: 1;
+        margin: 0;
+        border-radius: 6px;
+      }
+
+      .table-responsive {
+        font-size: 0.8rem;
+      }
+
+      .table td, .table th {
+        padding: 0.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -28,8 +166,30 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item"><a class="nav-link nav-link-modern" href="#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link nav-link-modern" href="#products">Products</a></li>
-          <li class="nav-item"><a class="nav-link nav-link-modern" href="#pricing">Pricing</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle nav-link-modern" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Categories <i class="fas fa-chevron-down ms-1"></i>
+            </a>
+            <ul class="dropdown-menu modern-dropdown" aria-labelledby="categoriesDropdown">
+              <li><h6 class="dropdown-header"><i class="fas fa-hashtag me-2"></i>Social Media</h6></li>
+              <li><a class="dropdown-item" href="#products" onclick="switchToTab('gmail-tab')"><i class="fas fa-envelope me-2"></i>Gmail Accounts</a></li>
+              <li><a class="dropdown-item" href="#products" onclick="switchToTab('facebook-tab')"><i class="fab fa-facebook me-2"></i>Facebook Accounts</a></li>
+              <li><a class="dropdown-item" href="#products" onclick="switchToTab('instagram-tab')"><i class="fab fa-instagram me-2"></i>Instagram Accounts</a></li>
+              <li><a class="dropdown-item" href="#products" onclick="switchToTab('tiktok-tab')"><i class="fab fa-tiktok me-2"></i>TikTok Accounts</a></li>
+              <li><a class="dropdown-item" href="#products" onclick="switchToTab('youtube-tab')"><i class="fab fa-youtube me-2"></i>YouTube Accounts</a></li>
+              <li><a class="dropdown-item" href="#products" onclick="switchToTab('twitter-tab')"><i class="fab fa-x-twitter me-2"></i>X (Twitter) Accounts</a></li>
+              <li><a class="dropdown-item" href="#products" onclick="switchToTab('linkedin-tab')"><i class="fab fa-linkedin me-2"></i>LinkedIn Accounts</a></li>
+              <li><a class="dropdown-item" href="#products" onclick="switchToTab('telegram-tab')"><i class="fab fa-telegram me-2"></i>Telegram Accounts</a></li>
+              <li><a class="dropdown-item" href="#products" onclick="switchToTab('threads-tab')"><i class="fab fa-threads me-2"></i>Threads Accounts</a></li>
+              <li><a class="dropdown-item" href="#products" onclick="switchToTab('wechat-tab')"><i class="fab fa-weixin me-2"></i>WeChat Accounts</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><h6 class="dropdown-header"><i class="fas fa-envelope-open me-2"></i>Email Marketing</h6></li>
+              <li><a class="dropdown-item" href="#products" onclick="switchToTab('gmail-tab')"><i class="fas fa-envelope me-2"></i>Gmail Business Accounts</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><h6 class="dropdown-header"><i class="fas fa-gamepad me-2"></i>Games</h6></li>
+              <li><a class="dropdown-item" href="#coming-soon"><i class="fas fa-dice me-2"></i>Coming Soon</a></li>
+            </ul>
+          </li>
           <li class="nav-item"><a class="nav-link nav-link-modern" href="#features">Features</a></li>
           <li class="nav-item"><a class="nav-link nav-link-modern" href="#reviews">Reviews</a></li>
           <li class="nav-item"><a class="nav-link nav-link-modern" href="#faq">FAQ</a></li>
@@ -1773,5 +1933,82 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/js/app.js"></script>
+
+  <script>
+    // Function to switch to specific tab from navigation dropdown
+    function switchToTab(tabId) {
+      // Remove active class from all tab buttons
+      const tabButtons = document.querySelectorAll('#productTabs button.nav-link');
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+
+      // Add active class to target tab button
+      const targetButton = document.querySelector(`button[data-bs-target="#${tabId}"]`);
+      if (targetButton) {
+        targetButton.classList.add('active');
+      }
+
+      // Hide all tab panes
+      const tabPanes = document.querySelectorAll('#productTabsContent .tab-pane');
+      tabPanes.forEach(pane => {
+        pane.classList.remove('show', 'active');
+      });
+
+      // Show target tab pane
+      const targetPane = document.getElementById(tabId);
+      if (targetPane) {
+        targetPane.classList.add('show', 'active');
+      }
+
+      // Scroll to products section
+      const productsSection = document.getElementById('products');
+      if (productsSection) {
+        productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Fix for mobile tab touch events
+    document.addEventListener('DOMContentLoaded', function() {
+      // Ensure Bootstrap tabs work on mobile devices
+      const tabButtons = document.querySelectorAll('#productTabs button[data-bs-toggle="tab"]');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('touchstart', function(e) {
+          // Prevent default touch behavior that might interfere
+          e.preventDefault();
+
+          // Manually trigger the tab switch
+          const targetId = this.getAttribute('data-bs-target').substring(1); // Remove the # prefix
+          switchToTab(targetId);
+        });
+
+        // Also handle click events for desktop
+        button.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('data-bs-target').substring(1);
+          switchToTab(targetId);
+        });
+      });
+
+      // Initialize tabs properly for mobile
+      const tabContainer = document.getElementById('productTabs');
+      if (tabContainer && typeof bootstrap !== 'undefined' && bootstrap.Tab) {
+        // Force Bootstrap to reinitialize tabs
+        const bsTabs = [].slice.call(tabContainer.querySelectorAll('button[data-bs-toggle="tab"]'));
+        bsTabs.forEach(function (tabEl) {
+          new bootstrap.Tab(tabEl);
+        });
+      }
+    });
+
+    // Additional mobile touch improvements
+    document.addEventListener('touchstart', function() {}, { passive: true });
+
+    // Fix for iOS Safari touch events
+    const tabContainer = document.getElementById('productTabs');
+    if (tabContainer) {
+      tabContainer.addEventListener('touchend', function(e) {
+        // Allow normal touch behavior
+      }, { passive: true });
+    }
+  </script>
 </body>
 </html>
