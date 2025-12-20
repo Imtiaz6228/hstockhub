@@ -71,134 +71,499 @@
   </nav>
 
   <!-- Hero Section -->
-  <section id="home" class="hero-section position-relative overflow-hidden">
-    <!-- Background with animated gradient -->
-    <div class="hero-bg"></div>
+  <section id="home" class="hero-section position-relative overflow-hidden" style="
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+  ">
+    <!-- Animated background overlay -->
+    <div class="hero-bg" style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+      animation: float 20s ease-in-out infinite;
+    "></div>
 
-    <!-- Floating particles -->
-    <div class="hero-particles">
-      <div class="particle particle-1"></div>
-      <div class="particle particle-2"></div>
-      <div class="particle particle-3"></div>
-      <div class="particle particle-4"></div>
+    <!-- Elegant floating particles -->
+    <div class="hero-particles" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden;">
+      <div class="particle particle-1" style="
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 50%;
+        top: 20%;
+        left: 10%;
+        animation: particleFloat 8s ease-in-out infinite;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      "></div>
+      <div class="particle particle-2" style="
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(255, 215, 0, 0.7);
+        border-radius: 50%;
+        top: 60%;
+        left: 80%;
+        animation: particleFloat 12s ease-in-out infinite reverse;
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+      "></div>
+      <div class="particle particle-3" style="
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: rgba(138, 43, 226, 0.5);
+        border-radius: 50%;
+        top: 40%;
+        left: 60%;
+        animation: particleFloat 10s ease-in-out infinite;
+        box-shadow: 0 0 25px rgba(138, 43, 226, 0.7);
+      "></div>
+      <div class="particle particle-4" style="
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background: rgba(255, 20, 147, 0.6);
+        border-radius: 50%;
+        top: 80%;
+        left: 30%;
+        animation: particleFloat 14s ease-in-out infinite reverse;
+        box-shadow: 0 0 18px rgba(255, 20, 147, 0.8);
+      "></div>
     </div>
 
-    <div class="container position-relative">
+    <div class="container position-relative" style="z-index: 2;">
       <div class="row align-items-center min-vh-100 py-5">
         <div class="col-lg-6 col-md-7">
-          <div class="hero-content">
-            <!-- Trust badge -->
-            <div class="trust-badge mb-4">
+          <div class="hero-content" style="
+            animation: fadeInUp 1.5s ease-out;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+          ">
+            <!-- Elegant trust badge -->
+            <div class="trust-badge mb-5" style="
+              display: inline-flex;
+              align-items: center;
+              background: linear-gradient(135deg, #28a745, #20c997);
+              color: white;
+              padding: 0.75rem 1.5rem;
+              border-radius: 50px;
+              font-size: 0.9rem;
+              font-weight: 600;
+              box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+              animation: slideInLeft 1s ease-out;
+            ">
               <i class="fas fa-shield-check me-2"></i>
-              <span class="fw-bold">Trusted by 10,000+ Customers</span>
-              <div class="badge-stars">
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
+              Trusted by 10,000+ Customers
+              <div class="badge-stars ms-3" style="color: #ffd700;">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
               </div>
             </div>
 
-            <!-- Main heading -->
-            <h1 class="hero-title display-3 fw-bold mb-4">
+            <!-- Sophisticated main heading -->
+            <h1 class="hero-title mb-4" style="
+              font-size: 3.5rem;
+              font-weight: 300;
+              line-height: 1.2;
+              color: white;
+              text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+              animation: fadeInUp 1.5s ease-out 0.2s both;
+              letter-spacing: -0.02em;
+            ">
               Premium Social Media
-              <span class="text-accent">Accounts</span>
+              <span style="
+                background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                font-weight: 500;
+              ">Accounts</span>
               <br>
-              <span class="hero-subtitle">That Drive Results</span>
+              <span style="
+                font-size: 2.5rem;
+                opacity: 0.9;
+                display: block;
+                margin-top: 0.5rem;
+              ">That Drive Results</span>
             </h1>
 
-            <!-- Description -->
-            <p class="hero-description lead mb-4 text-muted">
+            <!-- Refined description -->
+            <p class="hero-description lead mb-5" style="
+              font-size: 1.25rem;
+              line-height: 1.6;
+              color: rgba(255, 255, 255, 0.9);
+              font-weight: 300;
+              animation: fadeInUp 1.5s ease-out 0.4s both;
+              text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            ">
               Get verified Instagram, Facebook, Gmail, and premium accounts across 10+ platforms.
               Aged, trusted accounts perfect for marketing automation, business growth, and social media management.
             </p>
 
-            <!-- Social proof -->
-            <div class="social-proof mb-4">
-              <div class="d-flex align-items-center mb-3">
-                <div class="platform-icons">
-                  <i class="fab fa-instagram platform-icon instagram"></i>
-                  <i class="fab fa-facebook platform-icon facebook"></i>
-                  <i class="fas fa-envelope platform-icon gmail"></i>
-                  <i class="fab fa-tiktok platform-icon tiktok"></i>
-                  <span class="ms-2 fw-bold text-dark">+5 More Platforms</span>
+            <!-- Enhanced social proof -->
+            <div class="social-proof mb-5" style="animation: fadeInUp 1.5s ease-out 0.6s both;">
+              <div class="d-flex align-items-center mb-4">
+                <div class="platform-icons" style="display: flex; gap: 1rem; align-items: center;">
+                  <div style="
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 1.5rem;
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                    transition: transform 0.3s ease;
+                  " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                    <i class="fab fa-instagram"></i>
+                  </div>
+                  <div style="
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, #3b5998, #8b9dc3);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 1.5rem;
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                    transition: transform 0.3s ease;
+                  " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                    <i class="fab fa-facebook"></i>
+                  </div>
+                  <div style="
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, #ea4335, #4285f4);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 1.5rem;
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                    transition: transform 0.3s ease;
+                  " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                    <i class="fas fa-envelope"></i>
+                  </div>
+                  <div style="
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, #000000, #ffffff);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 1.5rem;
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                    transition: transform 0.3s ease;
+                  " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                    <i class="fab fa-tiktok"></i>
+                  </div>
+                  <span style="
+                    color: white;
+                    font-weight: 600;
+                    font-size: 1.1rem;
+                    margin-left: 1rem;
+                    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+                  ">+5 More Platforms</span>
                 </div>
               </div>
-              <div class="stats">
-                <div class="stat-item">
-                  <span class="stat-number">50K+</span>
-                  <span class="stat-label">Accounts Delivered</span>
+              <div class="stats" style="
+                display: flex;
+                gap: 2rem;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+              ">
+                <div class="stat-item" style="
+                  text-align: center;
+                  background: rgba(255, 255, 255, 0.1);
+                  padding: 1rem;
+                  border-radius: 15px;
+                  backdrop-filter: blur(10px);
+                  border: 1px solid rgba(255, 255, 255, 0.2);
+                ">
+                  <span class="stat-number" style="
+                    font-size: 2rem;
+                    font-weight: 700;
+                    color: #ffd89b;
+                    display: block;
+                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                  ">50K+</span>
+                  <span class="stat-label" style="
+                    font-size: 0.9rem;
+                    color: rgba(255, 255, 255, 0.8);
+                    font-weight: 500;
+                  ">Accounts Delivered</span>
                 </div>
-                <div class="stat-item">
-                  <span class="stat-number">99.9%</span>
-                  <span class="stat-label">Success Rate</span>
+                <div class="stat-item" style="
+                  text-align: center;
+                  background: rgba(255, 255, 255, 0.1);
+                  padding: 1rem;
+                  border-radius: 15px;
+                  backdrop-filter: blur(10px);
+                  border: 1px solid rgba(255, 255, 255, 0.2);
+                ">
+                  <span class="stat-number" style="
+                    font-size: 2rem;
+                    font-weight: 700;
+                    color: #ffd89b;
+                    display: block;
+                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                  ">99.9%</span>
+                  <span class="stat-label" style="
+                    font-size: 0.9rem;
+                    color: rgba(255, 255, 255, 0.8);
+                    font-weight: 500;
+                  ">Success Rate</span>
                 </div>
-                <div class="stat-item">
-                  <span class="stat-number">24/7</span>
-                  <span class="stat-label">Support</span>
+                <div class="stat-item" style="
+                  text-align: center;
+                  background: rgba(255, 255, 255, 0.1);
+                  padding: 1rem;
+                  border-radius: 15px;
+                  backdrop-filter: blur(10px);
+                  border: 1px solid rgba(255, 255, 255, 0.2);
+                ">
+                  <span class="stat-number" style="
+                    font-size: 2rem;
+                    font-weight: 700;
+                    color: #ffd89b;
+                    display: block;
+                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                  ">24/7</span>
+                  <span class="stat-label" style="
+                    font-size: 0.9rem;
+                    color: rgba(255, 255, 255, 0.8);
+                    font-weight: 500;
+                  ">Support</span>
                 </div>
               </div>
             </div>
 
-            <!-- CTA Buttons -->
-            <div class="hero-buttons mb-4">
-              <a href="#products" class="btn btn-primary btn-lg px-5 py-3 me-3 mb-3 hero-btn-primary">
+            <!-- Premium CTA Buttons -->
+            <div class="hero-buttons mb-5" style="animation: fadeInUp 1.5s ease-out 0.8s both;">
+              <a href="#products" class="btn btn-primary btn-lg px-5 py-3 me-3 mb-3" style="
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border: none;
+                border-radius: 50px;
+                font-weight: 600;
+                font-size: 1.1rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+                transition: all 0.3s ease;
+                color: white;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                position: relative;
+                overflow: hidden;
+              " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 35px rgba(102, 126, 234, 0.6)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(102, 126, 234, 0.4)'">
                 <i class="fas fa-shopping-cart me-2"></i>
                 Browse Accounts
               </a>
-              <a href="#features" class="btn btn-outline-primary btn-lg px-5 py-3 mb-3 hero-btn-secondary">
+              <a href="#features" class="btn btn-outline-light btn-lg px-5 py-3 mb-3" style="
+                border: 2px solid rgba(255, 255, 255, 0.8);
+                border-radius: 50px;
+                font-weight: 600;
+                font-size: 1.1rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                color: white;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(10px);
+                background: rgba(255, 255, 255, 0.1);
+              " onmouseover="this.style.background='rgba(255, 255, 255, 0.2)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.1)'; this.style.transform='translateY(0)'">
                 <i class="fas fa-star me-2"></i>
                 View Features
               </a>
             </div>
 
-            <!-- Guarantee -->
-            <div class="guarantee d-flex align-items-center">
-              <i class="fas fa-check-circle text-success fs-5 me-3"></i>
-              <span class="text-muted">30-Day money-back guarantee • Instant delivery • Lifetime support</span>
+            <!-- Elegant guarantee -->
+            <div class="guarantee d-flex align-items-center" style="
+              animation: fadeInUp 1.5s ease-out 1s both;
+              background: rgba(255, 255, 255, 0.1);
+              padding: 1rem 1.5rem;
+              border-radius: 50px;
+              backdrop-filter: blur(10px);
+              border: 1px solid rgba(255, 255, 255, 0.2);
+            ">
+              <i class="fas fa-check-circle me-3" style="color: #28a745; font-size: 1.5rem;"></i>
+              <span style="color: rgba(255, 255, 255, 0.9); font-weight: 500;">30-Day money-back guarantee • Instant delivery • Lifetime support</span>
             </div>
           </div>
         </div>
 
         <div class="col-lg-6 col-md-5">
-          <div class="hero-visual">
-            <!-- Interactive dashboard mockup -->
-            <div class="dashboard-mockup">
-              <div class="mockup-header">
-                <div class="mockup-dots">
-                  <span></span>
-                  <span></span>
-                  <span></span>
+          <div class="hero-visual" style="
+            animation: fadeInRight 1.5s ease-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          ">
+            <!-- Premium dashboard mockup -->
+            <div class="dashboard-mockup" style="
+              background: rgba(255, 255, 255, 0.95);
+              border-radius: 20px;
+              box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+              overflow: hidden;
+              backdrop-filter: blur(20px);
+              border: 1px solid rgba(255, 255, 255, 0.3);
+              max-width: 400px;
+              width: 100%;
+              transform: perspective(1000px) rotateY(-5deg);
+              transition: transform 0.5s ease;
+            " onmouseover="this.style.transform='perspective(1000px) rotateY(0deg)'" onmouseout="this.style.transform='perspective(1000px) rotateY(-5deg)'">
+              <div class="mockup-header" style="
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                padding: 1rem 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+              ">
+                <div class="mockup-dots" style="display: flex; gap: 0.5rem;">
+                  <span style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56;"></span>
+                  <span style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></span>
+                  <span style="width: 12px; height: 12px; border-radius: 50%; background: #27ca3f;"></span>
                 </div>
-                <div class="mockup-title">HStockHub Dashboard</div>
+                <div class="mockup-title" style="color: white; font-weight: 600; font-size: 0.9rem;">HStockHub Dashboard</div>
               </div>
-              <div class="mockup-content">
-                <div class="stats-grid">
-                  <div class="stat-card">
-                    <i class="fas fa-shopping-cart text-primary"></i>
-                    <div class="stat-value">12,547</div>
-                    <div class="stat-label">Accounts Sold</div>
+              <div class="mockup-content" style="padding: 2rem;">
+                <div class="stats-grid" style="
+                  display: grid;
+                  grid-template-columns: repeat(3, 1fr);
+                  gap: 1rem;
+                  margin-bottom: 2rem;
+                ">
+                  <div class="stat-card" style="
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    padding: 1rem;
+                    border-radius: 12px;
+                    text-align: center;
+                    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+                  ">
+                    <i class="fas fa-shopping-cart mb-2" style="font-size: 1.5rem;"></i>
+                    <div class="stat-value" style="font-size: 1.5rem; font-weight: 700;">12,547</div>
+                    <div class="stat-label" style="font-size: 0.8rem; opacity: 0.9;">Accounts Sold</div>
                   </div>
-                  <div class="stat-card">
-                    <i class="fas fa-users text-success"></i>
-                    <div class="stat-value">8,932</div>
-                    <div class="stat-label">Happy Customers</div>
+                  <div class="stat-card" style="
+                    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+                    color: white;
+                    padding: 1rem;
+                    border-radius: 12px;
+                    text-align: center;
+                    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+                  ">
+                    <i class="fas fa-users mb-2" style="font-size: 1.5rem;"></i>
+                    <div class="stat-value" style="font-size: 1.5rem; font-weight: 700;">8,932</div>
+                    <div class="stat-label" style="font-size: 0.8rem; opacity: 0.9;">Happy Customers</div>
                   </div>
-                  <div class="stat-card">
-                    <i class="fas fa-star text-warning"></i>
-                    <div class="stat-value">4.9</div>
-                    <div class="stat-label">Average Rating</div>
+                  <div class="stat-card" style="
+                    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+                    color: white;
+                    padding: 1rem;
+                    border-radius: 12px;
+                    text-align: center;
+                    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.3);
+                  ">
+                    <i class="fas fa-star mb-2" style="font-size: 1.5rem;"></i>
+                    <div class="stat-value" style="font-size: 1.5rem; font-weight: 700;">4.9</div>
+                    <div class="stat-label" style="font-size: 0.8rem; opacity: 0.9;">Average Rating</div>
                   </div>
                 </div>
                 <div class="platform-selection">
-                  <h6>Choose Your Platform</h6>
-                  <div class="platform-buttons">
-                    <button class="platform-btn active"><i class="fab fa-instagram"></i></button>
-                    <button class="platform-btn"><i class="fab fa-facebook"></i></button>
-                    <button class="platform-btn"><i class="fas fa-envelope"></i></button>
-                    <button class="platform-btn"><i class="fab fa-tiktok"></i></button>
-                    <button class="platform-btn"><i class="fab fa-youtube"></i></button>
+                  <h6 style="color: #6c757d; font-weight: 600; margin-bottom: 1rem; text-align: center;">Choose Your Platform</h6>
+                  <div class="platform-buttons" style="display: flex; justify-content: center; gap: 0.5rem;">
+                    <button class="platform-btn active" style="
+                      width: 45px;
+                      height: 45px;
+                      border-radius: 50%;
+                      border: 3px solid #667eea;
+                      background: linear-gradient(135deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+                      color: white;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-size: 1.2rem;
+                      transition: all 0.3s ease;
+                      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+                    " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                      <i class="fab fa-instagram"></i>
+                    </button>
+                    <button class="platform-btn" style="
+                      width: 45px;
+                      height: 45px;
+                      border-radius: 50%;
+                      border: 3px solid transparent;
+                      background: linear-gradient(135deg, #3b5998, #8b9dc3);
+                      color: white;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-size: 1.2rem;
+                      transition: all 0.3s ease;
+                      opacity: 0.7;
+                    " onmouseover="this.style.opacity='1'; this.style.transform='scale(1.1)'" onmouseout="this.style.opacity='0.7'; this.style.transform='scale(1)'">
+                      <i class="fab fa-facebook"></i>
+                    </button>
+                    <button class="platform-btn" style="
+                      width: 45px;
+                      height: 45px;
+                      border-radius: 50%;
+                      border: 3px solid transparent;
+                      background: linear-gradient(135deg, #ea4335, #4285f4);
+                      color: white;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-size: 1.2rem;
+                      transition: all 0.3s ease;
+                      opacity: 0.7;
+                    " onmouseover="this.style.opacity='1'; this.style.transform='scale(1.1)'" onmouseout="this.style.opacity='0.7'; this.style.transform='scale(1)'">
+                      <i class="fas fa-envelope"></i>
+                    </button>
+                    <button class="platform-btn" style="
+                      width: 45px;
+                      height: 45px;
+                      border-radius: 50%;
+                      border: 3px solid transparent;
+                      background: linear-gradient(135deg, #000000, #ffffff);
+                      color: white;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-size: 1.2rem;
+                      transition: all 0.3s ease;
+                      opacity: 0.7;
+                    " onmouseover="this.style.opacity='1'; this.style.transform='scale(1.1)'" onmouseout="this.style.opacity='0.7'; this.style.transform='scale(1)'">
+                      <i class="fab fa-tiktok"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -207,6 +572,60 @@
         </div>
       </div>
     </div>
+
+    <style>
+      @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33% { transform: translateY(-10px) rotate(1deg); }
+        66% { transform: translateY(5px) rotate(-1deg); }
+      }
+
+      @keyframes particleFloat {
+        0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.6; }
+        25% { transform: translateY(-20px) translateX(10px); opacity: 1; }
+        50% { transform: translateY(-10px) translateX(-15px); opacity: 0.8; }
+        75% { transform: translateY(-30px) translateX(5px); opacity: 0.9; }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInRight {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    </style>
   </section>
 
   <!-- Product Categories -->
