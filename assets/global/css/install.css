@@ -1,0 +1,258 @@
+/* =============== 通用字体、动画 =============== */
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+@keyframes iconWobble {
+  0%   { transform: rotate(0deg); }
+  15%  { transform: rotate(-15deg); }
+  30%  { transform: rotate(10deg); }
+  45%  { transform: rotate(-10deg); }
+  60%  { transform: rotate(6deg); }
+  75%  { transform: rotate(-6deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* =============== 通用悬浮按钮 =============== */
+.floating-btn {
+  position: fixed;
+  left: 30px;
+  z-index: 9990;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.floating-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+/* 增加粉丝、点赞服务按钮 */
+#btn-buff {
+  bottom: 180px;
+  background: linear-gradient(135deg, #ff9f00 0%, #ffc107 100%);
+  /* 可选动画 */
+}
+
+/* “联系我们”按钮：蓝绿渐变 + 晃动动画 + headset图标 */
+#btn-contact {
+  bottom: 60px;
+  background: linear-gradient(135deg, #00a3ff 0%, #00d68f 100%);
+  font-size: 20px;
+  animation: iconWobble 2.5s infinite ease; 
+}
+
+/* “APP”按钮：蓝绿渐变 + 显示“APP”文字 */
+#btn-app {
+  bottom: 120px;
+  background: linear-gradient(135deg, #2196f3 0%, #4caf50 100%);
+  font-size: 14px;
+  font-weight: 600;
+  justify-content: center;
+}
+
+/* =============== 通用遮罩 =============== */
+.sheet-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9991;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(2px);
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+.sheet-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+/* =============== 通用底部弹窗 =============== */
+.sheet {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%) translateY(120%); 
+  bottom: 0;
+  z-index: 9992;
+  width: 100%;
+  max-width: 600px;
+  max-height: calc(100% - 1rem);
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -6px 24px rgba(0,0,0,0.2);
+  overflow: auto;
+  transition: transform 0.4s ease;
+}
+.sheet.active {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 顶部小把手、头部、关闭按钮 */
+.sheet-handle {
+  width: 50px;
+  height: 5px;
+  border-radius: 5px;
+  background: #ccc;
+  margin: 0.5rem auto 1rem;
+}
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  padding: 0 1rem;
+}
+.sheet-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+/* 红色圆形关闭按钮 */
+.sheet-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #e00;
+  color: #fff;
+  font-size: 1.3rem;
+  line-height: 36px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* 主体 */
+.sheet-body {
+  padding: 0 1rem 1rem;
+  line-height: 1.5;
+  color: #333;
+}
+.sheet::-webkit-scrollbar {
+  width: 6px;
+}
+.sheet::-webkit-scrollbar-track {
+  background: #f2f2f2;
+}
+.sheet::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+/* =============== 联系我们弹窗 =============== */
+#overlay-contact {}
+#sheet-contact {}
+
+/* =============== APP安装弹窗 =============== */
+#overlay-app {}
+#sheet-app {}
+
+/* =============== APP安装: 不同设备区块 =============== */
+.device-section {
+  display: none;
+  margin-top: 1rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1rem;
+}
+.device-section h4 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.device-section p {
+  margin-bottom: 0.5rem;
+}
+
+/* iOS额外弹窗 */
+#ios-instructions {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 10003;
+  width: 90%;
+  max-width: 320px;
+  background: #fdfdfd;
+  color: #333;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  padding: 1rem;
+}
+.ios-close-btn {
+  position: absolute;
+  top: 8px; 
+  right: 8px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+}
+.ios-modal-title {
+  text-align: center;
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 600;
+}
+.ios-steps {
+  margin: 0.75rem 0;
+}
+.ios-steps ol {
+  margin-left: 1.5rem;
+}
+.ios-steps li {
+  margin: 0.5rem 0;
+  line-height: 1.4;
+}
+.ios-share-icon {
+  width: 18px;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+.ios-close-bottom {
+  display: inline-block;
+  margin-top: 1rem;
+  background: linear-gradient(135deg, #2196f3 0%, #4caf50 100%);
+  border: none;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+
+/* =========================================
+   移动端优化：在屏幕宽度小于等于768px时 
+   按钮整体变小，垂直间距更紧凑，避免遮挡
+========================================= */
+@media screen and (max-width: 768px) {
+  .floating-btn {
+    width: 40px;       /* 比原来稍小一点 */
+    height: 40px;
+    left: 15px;        /* 离屏幕左侧更近 */
+  }
+  /* 原本bottom距离可根据需求缩小，让它们在左下角不占太多视野 */
+  #btn-buff {
+    bottom: 130px;
+  }
+  #btn-app {
+    bottom: 80px;
+  }
+  #btn-contact {
+    bottom: 30px;
+  }
+  #btn-contact {
+    font-size: 18px;  /* 适度缩小文字/图标 */
+  }
+}

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="180" viewBox="0 0 1200 180">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="0.4">
+      <stop offset="0" stop-color="#059669"/>
+      <stop offset="0.5" stop-color="#0d9488"/>
+      <stop offset="1" stop-color="#0891b2"/>
+    </linearGradient>
+    <linearGradient id="icon-g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#059669"/>
+      <stop offset="1" stop-color="#0891b2"/>
+    </linearGradient>
+    <style>
+      .f{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+    </style>
+  </defs>
+
+  <!-- Main background -->
+  <rect width="1200" height="180" rx="20" fill="url(#bg)"/>
+
+  <!-- Decorative shapes -->
+  <circle cx="1050" cy="20" r="120" fill="#fff" opacity="0.04"/>
+  <circle cx="80" cy="170" r="70" fill="#fff" opacity="0.04"/>
+  <circle cx="600" cy="-20" r="60" fill="#fff" opacity="0.03"/>
+
+  <!-- Star/sparkle decorations -->
+  <g opacity="0.07" fill="#fff">
+    <path d="M850 30l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>
+    <path d="M950 140l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/>
+    <path d="M400 150l1 3 3 1-3 1-1 3-1-3-3-1 3-1z"/>
+    <path d="M750 25l1.5 3.5 3.5 1.5-3.5 1.5-1.5 3.5-1.5-3.5-3.5-1.5 3.5-1.5z"/>
+  </g>
+
+  <!-- Icon background -->
+  <circle cx="110" cy="90" r="52" fill="#fff" opacity="0.1"/>
+  <circle cx="110" cy="90" r="42" fill="#fff" opacity="0.95"/>
+
+  <!-- Gift box icon -->
+  <g transform="translate(110,90)">
+    <!-- Box body -->
+    <rect x="-18" y="-4" width="36" height="24" rx="3" fill="url(#icon-g)"/>
+    <!-- Box lid -->
+    <rect x="-20" y="-10" width="40" height="10" rx="3" fill="url(#icon-g)"/>
+    <!-- Ribbon vertical -->
+    <rect x="-2.5" y="-10" width="5" height="34" fill="#fff" opacity="0.4"/>
+    <!-- Ribbon horizontal -->
+    <rect x="-20" y="-6" width="40" height="5" fill="#fff" opacity="0.3"/>
+    <!-- Bow -->
+    <ellipse cx="-6" cy="-14" rx="7" ry="5" fill="#fbbf24" opacity="0.9"/>
+    <ellipse cx="6" cy="-14" rx="7" ry="5" fill="#fbbf24" opacity="0.9"/>
+    <circle cx="0" cy="-13" r="3" fill="#f59e0b"/>
+  </g>
+
+  <!-- Text -->
+  <text x="195" y="72" class="f" fill="#fff" font-size="30" font-weight="800" letter-spacing="0.5">
+    礼品卡 / 订阅市场
+  </text>
+  <text x="195" y="106" class="f" fill="#ccfbf1" font-size="17" opacity="0.92">
+    Netflix · Spotify · iCloud · TG Premium · Discord Nitro 等一站购齐
+  </text>
+  <rect x="195" y="120" width="50" height="3" rx="1.5" fill="#5eead4" opacity="0.5"/>
+
+  <!-- CTA Button -->
+  <g transform="translate(910,60)">
+    <rect width="220" height="50" rx="25" fill="#fff" opacity="0.95"/>
+    <text x="110" y="25" class="f" fill="#059669" font-size="18" font-weight="700"
+          text-anchor="middle" dominant-baseline="middle">
+      立即浏览 →
+    </text>
+  </g>
+
+  <!-- Badges -->
+  <g transform="translate(910,122)">
+    <rect width="68" height="22" rx="11" fill="#fff" opacity="0.15"/>
+    <text x="34" y="11" class="f" fill="#fff" font-size="11" font-weight="600"
+          text-anchor="middle" dominant-baseline="middle">正品保证</text>
+  </g>
+  <g transform="translate(988,122)">
+    <rect width="68" height="22" rx="11" fill="#fff" opacity="0.15"/>
+    <text x="34" y="11" class="f" fill="#fff" font-size="11" font-weight="600"
+          text-anchor="middle" dominant-baseline="middle">即买即用</text>
+  </g>
+  <g transform="translate(1066,122)">
+    <rect width="68" height="22" rx="11" fill="#fff" opacity="0.15"/>
+    <text x="34" y="11" class="f" fill="#fff" font-size="11" font-weight="600"
+          text-anchor="middle" dominant-baseline="middle">品种齐全</text>
+  </g>
+</svg>

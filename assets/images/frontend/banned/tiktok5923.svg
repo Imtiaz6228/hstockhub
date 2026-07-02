@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="180" viewBox="0 0 1200 180">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="0.3">
+      <stop offset="0" stop-color="#0f0f0f"/>
+      <stop offset="0.6" stop-color="#1a1a2e"/>
+      <stop offset="1" stop-color="#16213e"/>
+    </linearGradient>
+    <linearGradient id="neon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00f2ea"/>
+      <stop offset="1" stop-color="#ff0050"/>
+    </linearGradient>
+    <style>
+      .f{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+    </style>
+  </defs>
+
+  <!-- Main background -->
+  <rect width="1200" height="180" rx="20" fill="url(#bg)"/>
+
+  <!-- Neon glow effects -->
+  <circle cx="900" cy="30" r="150" fill="#ff0050" opacity="0.04"/>
+  <circle cx="300" cy="150" r="100" fill="#00f2ea" opacity="0.05"/>
+  <circle cx="1100" cy="140" r="80" fill="#00f2ea" opacity="0.03"/>
+
+  <!-- Diagonal lines decoration -->
+  <g stroke="#fff" stroke-width="0.5" opacity="0.04">
+    <line x1="700" y1="0" x2="800" y2="180"/>
+    <line x1="750" y1="0" x2="850" y2="180"/>
+    <line x1="800" y1="0" x2="900" y2="180"/>
+  </g>
+
+  <!-- Music note decorations -->
+  <g opacity="0.06" fill="#fff">
+    <circle cx="850" cy="40" r="5"/><rect x="854" y="16" width="2" height="24"/>
+    <circle cx="960" cy="140" r="4"/><rect x="963" y="120" width="1.5" height="20"/>
+    <circle cx="350" cy="150" r="3.5"/><rect x="353" y="134" width="1.5" height="16"/>
+  </g>
+
+  <!-- Icon -->
+  <circle cx="110" cy="90" r="52" fill="#fff" opacity="0.06"/>
+  <circle cx="110" cy="90" r="42" fill="#fff"/>
+
+  <!-- TikTok logo -->
+  <g transform="translate(110,90)">
+    <!-- Cyan shadow -->
+    <path d="M6-24c3 5 7 8 13 9v12a22 22 0 0 1-13-4v16a18 18 0 1 1-12-17v12a6 6 0 1 0 4 6V-30h8z"
+          fill="#00f2ea" transform="translate(-1.5,-1)"/>
+    <!-- Red shadow -->
+    <path d="M6-24c3 5 7 8 13 9v12a22 22 0 0 1-13-4v16a18 18 0 1 1-12-17v12a6 6 0 1 0 4 6V-30h8z"
+          fill="#ff0050" transform="translate(1.5,1)"/>
+    <!-- Main shape -->
+    <path d="M6-24c3 5 7 8 13 9v12a22 22 0 0 1-13-4v16a18 18 0 1 1-12-17v12a6 6 0 1 0 4 6V-30h8z"
+          fill="#0f0f0f"/>
+  </g>
+
+  <!-- Text -->
+  <text x="195" y="72" class="f" fill="#fff" font-size="30" font-weight="800" letter-spacing="0.5">
+    TikTok 账号市场
+  </text>
+  <text x="195" y="106" class="f" fill="#a1a1aa" font-size="17">
+    海量优质账号 · 全自动发货 · 价格最低
+  </text>
+
+  <!-- Neon accent line -->
+  <rect x="195" y="120" width="60" height="3" rx="1.5" fill="url(#neon)" opacity="0.8"/>
+
+  <!-- CTA Button with neon border -->
+  <g transform="translate(910,60)">
+    <rect width="220" height="50" rx="25" fill="url(#neon)"/>
+    <rect x="2" y="2" width="216" height="46" rx="23" fill="#0f0f0f"/>
+    <text x="110" y="25" class="f" fill="#fff" font-size="18" font-weight="700"
+          text-anchor="middle" dominant-baseline="middle">
+      立即浏览 →
+    </text>
+  </g>
+
+  <!-- Badges -->
+  <g transform="translate(910,122)">
+    <rect width="68" height="22" rx="11" fill="#ff0050" opacity="0.15"/>
+    <text x="34" y="11" class="f" fill="#ff7096" font-size="11" font-weight="600"
+          text-anchor="middle" dominant-baseline="middle">海量账号</text>
+  </g>
+  <g transform="translate(988,122)">
+    <rect width="68" height="22" rx="11" fill="#00f2ea" opacity="0.15"/>
+    <text x="34" y="11" class="f" fill="#5ef5ee" font-size="11" font-weight="600"
+          text-anchor="middle" dominant-baseline="middle">自动发货</text>
+  </g>
+  <g transform="translate(1066,122)">
+    <rect width="68" height="22" rx="11" fill="#fff" opacity="0.08"/>
+    <text x="34" y="11" class="f" fill="#a1a1aa" font-size="11" font-weight="600"
+          text-anchor="middle" dominant-baseline="middle">价格最低</text>
+  </g>
+</svg>

@@ -1,0 +1,55 @@
+{
+  "name": "HaoYi账号商店",
+  "short_name": "HaoYi商店",
+  "description": "数字账号交易平台 - 安全快捷的账号购买服务",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#006fff",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "categories": ["shopping", "business"],
+  "prefer_related_applications": false,
+  "icons": [
+    { "src": "/assets/templates/basic/css/icons/icon-72x72.png", "sizes": "72x72", "type": "image/png" },
+    { "src": "/assets/templates/basic/css/icons/icon-96x96.png", "sizes": "96x96", "type": "image/png" },
+    { "src": "/assets/templates/basic/css/icons/icon-128x128.png", "sizes": "128x128", "type": "image/png" },
+    { "src": "/assets/templates/basic/css/icons/icon-144x144.png", "sizes": "144x144", "type": "image/png" },
+    { "src": "/assets/templates/basic/css/icons/icon-152x152.png", "sizes": "152x152", "type": "image/png" },
+    { "src": "/assets/templates/basic/css/icons/icon-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/assets/templates/basic/css/icons/icon-384x384.png", "sizes": "384x384", "type": "image/png" },
+    { "src": "/assets/templates/basic/css/icons/icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "我的订单",
+      "short_name": "订单",
+      "url": "/user/orders?source=pwa",
+      "description": "查看订单记录",
+      "icons": [{ "src": "/assets/templates/basic/css/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "浏览商品",
+      "short_name": "商品",
+      "url": "/products?source=pwa",
+      "description": "浏览全部商品",
+      "icons": [{ "src": "/assets/templates/basic/css/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "个人中心",
+      "short_name": "我的",
+      "url": "/user/dashboard?source=pwa",
+      "description": "账户信息和设置",
+      "icons": [{ "src": "/assets/templates/basic/css/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "文章中心",
+      "short_name": "文章",
+      "url": "/blog?source=pwa",
+      "description": "使用教程和文章",
+      "icons": [{ "src": "/assets/templates/basic/css/icons/icon-96x96.png", "sizes": "96x96" }]
+    }
+  ]
+}
