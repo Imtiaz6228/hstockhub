@@ -40,6 +40,19 @@
     return String(Math.round(number));
   }
 
+  function uniqueText(values, limit) {
+    var seen = new Set();
+    var result = [];
+    (values || []).forEach(function (value) {
+      var text = String(value || "").trim();
+      var key = text.toLowerCase();
+      if (!key || seen.has(key)) return;
+      seen.add(key);
+      result.push(text);
+    });
+    return result.slice(0, limit || 6);
+  }
+
   function formatMoney(value, currency) {
     var amount = Number(value || 0);
     var code = currency || "CNY";
@@ -58,7 +71,7 @@
   function stars(rating) {
     var value = Math.round(Number(rating || 0));
     var text = "";
-    for (var index = 0; index < 5; index += 1) text += index < value ? "*" : "-";
+    for (var index = 0; index < 5; index += 1) text += index < value ? "★" : "☆";
     return text;
   }
 
@@ -141,6 +154,32 @@
       '  </div>',
       '</section>',
       '<section class="market-category-strip" aria-label="Featured categories"><div class="market-shell market-category-scroll" id="marketCategoryStrip"></div></section>',
+      '<section class="market-section market-how" aria-labelledby="marketHowTitle">',
+      '  <div class="market-shell">',
+      '    <div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-route"></i> How it Works?</p><h2 id="marketHowTitle">Simple buying flow for digital products</h2><p>Use the same marketplace logic as the live catalog: register, pay, receive, and confirm delivery before sellers are released.</p></div></div>',
+      '    <div class="market-how-grid">',
+      '      <article class="market-how-card"><span><i class="las la-user-plus"></i></span><strong>Registration</strong><p>Register free to unlock buyer tools, saved products, orders, and marketplace support.</p></article>',
+      '      <article class="market-how-card"><span><i class="las la-credit-card"></i></span><strong>Payment</strong><p>Checkout through the available payment workflow and keep every order traceable.</p></article>',
+      '      <article class="market-how-card"><span><i class="las la-shipping-fast"></i></span><strong>Delivery</strong><p>Instant digital stock and manual delivery products show clear fulfillment status.</p></article>',
+      '      <article class="market-how-card"><span><i class="las la-check-square"></i></span><strong>Confirmation</strong><p>Validate delivery, review the product, and keep seller payout tied to trust signals.</p></article>',
+      '    </div>',
+      '  </div>',
+      '</section>',
+      '<section class="market-section marketplace-featured" aria-labelledby="marketplaceFeaturedTitle">',
+      '  <div class="market-shell">',
+      '    <div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-gem"></i> Featured Products</p><h2 id="marketplaceFeaturedTitle">Products and packages from our catalog</h2><p>Switch between new items, most viewed, best sellers, fast delivery, and discounted packages generated from existing products.</p></div><a class="market-link" href="products.html"><i class="las la-store"></i> Explore marketplace</a></div>',
+      '    <div class="marketplace-feature-tabs" id="marketFeaturedTabs"></div>',
+      '    <div class="marketplace-filter-chips" id="marketFeaturedChips"></div>',
+      '    <div class="marketplace-product-grid" id="marketFeaturedTabGrid"><div class="market-skeleton" style="height:280px"></div><div class="market-skeleton" style="height:280px"></div><div class="market-skeleton" style="height:280px"></div></div>',
+      '  </div>',
+      '</section>',
+      '<section class="market-section market-game-arena" aria-labelledby="marketTrendingGamesTitle">',
+      '  <div class="market-shell">',
+      '    <div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-chart-line"></i> Trending Niches</p><h2 id="marketTrendingGamesTitle">Trending categories and newly added packages</h2><p>Marketplace-style discovery using HaoYi / hstockhub digital content: top-ups, AI accounts, gaming wallets, email accounts, social accounts, and vouchers.</p></div><a class="market-link" href="categories.html"><i class="las la-th-large"></i> All categories</a></div>',
+      '    <div class="market-trending-grid" id="marketTrendingGames"></div>',
+      '    <div class="market-newly-panel"><div><p class="market-section-kicker"><i class="las la-sparkles"></i> New update!</p><h2>Newly added packages</h2></div><div class="market-newly-rail" id="marketNewPackages"></div></div>',
+      '  </div>',
+      '</section>',
       '<section class="plati-inspired" aria-labelledby="platiPopularTitle">',
       '  <div class="market-shell">',
       '    <div class="plati-mobile-header"><button type="button" aria-label="Open categories"><i class="las la-th-large"></i></button><strong>HSTOCKHUB</strong><button type="button" aria-label="Search"><i class="las la-search"></i></button></div>',
@@ -153,6 +192,7 @@
       '<section class="market-section tight" aria-labelledby="popularCategoriesTitle"><div class="market-shell"><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-fire"></i> Popular Categories</p><h2 id="popularCategoriesTitle">Category demand map</h2></div></div><div class="market-grid market-category-grid" id="marketPopularCategories"></div></div></section>',
       '<div id="marketProductSections"></div>',
       '<section class="market-section" aria-labelledby="categoryHighlightsTitle"><div class="market-shell"><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-layer-group"></i> Category Highlights</p><h2 id="categoryHighlightsTitle">Top, popular, latest, best-selling, and rated products by category</h2></div></div><div class="market-grid market-category-grid" id="marketCategoryHighlights"></div></div></section>',
+      '<section class="market-section market-seller-arena" aria-labelledby="featuredSellerTitle"><div class="market-shell"><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-store-alt"></i> Featured Sellers</p><h2 id="featuredSellerTitle">Explore proven and reliable sellers</h2><p>Seller cards show rating, verification level, and top catalog items like a full marketplace storefront.</p></div><div class="market-carousel-buttons"><button type="button" data-scroll-target="marketSellerShowcase" data-scroll-dir="-1" aria-label="Previous sellers"><i class="las la-arrow-left"></i></button><button type="button" data-scroll-target="marketSellerShowcase" data-scroll-dir="1" aria-label="Next sellers"><i class="las la-arrow-right"></i></button></div></div><div class="market-seller-showcase" id="marketSellerShowcase"></div></div></section>',
       '<section class="market-section" aria-labelledby="sellerTitle"><div class="market-shell market-columns"><div><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-user-check"></i> Verified Sellers</p><h2 id="sellerTitle">Premium seller signals</h2></div></div><div class="market-seller-grid" id="marketSellers"></div></div><aside class="market-panel"><p class="market-section-kicker"><i class="las la-shield-alt"></i> Why Choose Us</p><h2>Trust, stock, and delivery clarity</h2><p>hstockhub.com prioritizes active listings, seller verification, stock status, delivery type, rating data, and completed-sale signals so buyers can scan quickly.</p><div class="market-quick-links"><a class="market-chip" href="products.html"><i class="las la-shopping-bag"></i> Products</a><a class="market-chip" href="faq.html"><i class="las la-question-circle"></i> FAQs</a><a class="market-chip" href="contact.html"><i class="las la-headset"></i> Support</a></div></aside></div></section>',
       '<section class="market-section" aria-labelledby="reviewsTitle"><div class="market-shell"><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-comments"></i> Customer Reviews</p><h2 id="reviewsTitle">Published marketplace feedback</h2></div></div><div class="market-review-grid" id="marketReviews"></div></div></section>',
       '<section class="market-section" aria-labelledby="brandsTitle"><div class="market-shell"><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-certificate"></i> Featured Brands</p><h2 id="brandsTitle">Brand records from live products</h2></div></div><div class="market-brand-grid" id="marketBrands"></div></div></section>',
@@ -260,6 +300,132 @@
       '  <div class="plati-best-body"><strong class="plati-price">' + escapeHtml(formatMoney(product.price, product.currency)) + '</strong><a href="' + escapeHtml(product.url || "products.html") + '">' + escapeHtml(product.name) + '</a><span>Sold ' + escapeHtml(compactNumber(product.salesCount)) + '</span><button type="button" data-action="quick" data-product-id="' + escapeHtml(product.id) + '">Buy</button></div>',
       '</article>'
     ].join("");
+  }
+
+  function sectionByKey(data, key) {
+    return (data.sections || []).find(function (section) { return section.key === key; }) || { items: [] };
+  }
+
+  function allMarketplaceProducts(data, limit) {
+    var keys = (data.sections || []).map(function (section) { return section.key; });
+    return uniqueProductsFromSections(data, keys, limit || 80);
+  }
+
+  function marketplaceProductTile(product, modifier) {
+    var category = product.category || {};
+    var seller = product.seller || {};
+    var badges = uniqueText((product.badges || []).concat(product.fastDelivery ? ["Instant"] : []).concat(product.discountPercent ? ["Deal"] : []), 3);
+    return [
+      '<article class="marketplace-tile ' + escapeHtml(modifier || "") + '" data-product-id="' + escapeHtml(product.id) + '">',
+      '  <a class="marketplace-tile-media" href="' + escapeHtml(product.url || "products.html") + '">',
+      '    <img loading="lazy" src="' + escapeHtml(safeUrl(product.image)) + '" alt="' + escapeHtml(product.name) + '" onerror="this.src=\'/assets/images/default.png\'">',
+      '    <span class="marketplace-tile-type"><i class="las la-key"></i> ' + escapeHtml(category.name || "Digital") + '</span>',
+      '    <button type="button" data-action="wishlist" data-product-id="' + escapeHtml(product.id) + '" aria-label="Save product"><i class="lar la-heart"></i></button>',
+      '  </a>',
+      '  <div class="marketplace-tile-body">',
+      '    <div class="marketplace-tile-badges">' + badges.map(function (badge) { return '<span>' + escapeHtml(badge) + '</span>'; }).join("") + '</div>',
+      '    <a class="marketplace-tile-title" href="' + escapeHtml(product.url || "products.html") + '">' + escapeHtml(product.name) + '</a>',
+      '    <div class="marketplace-tile-meta"><span>' + escapeHtml(seller.name || "Marketplace seller") + '</span>' + (seller.verified ? '<b><i class="las la-check-circle"></i> Verified</b>' : '') + '</div>',
+      '    <div class="marketplace-tile-foot"><strong>' + escapeHtml(formatMoney(product.price, product.currency)) + '</strong><button type="button" data-action="quick" data-product-id="' + escapeHtml(product.id) + '">Details</button></div>',
+      '  </div>',
+      '</article>'
+    ].join("");
+  }
+
+  function trendingCategoryCard(category, index) {
+    var highlights = uniqueText([].concat(
+      (category.featuredProducts || []).map(function (item) { return item.name; }),
+      (category.popularProducts || []).map(function (item) { return item.name; }),
+      (category.bestSellingProducts || []).map(function (item) { return item.name; })
+    ), 3);
+    return [
+      '<a class="market-trending-card ' + (index < 2 ? 'featured' : '') + '" href="' + escapeHtml(category.url || "products.html") + '">',
+      '  <img loading="lazy" src="' + escapeHtml(safeUrl(category.image)) + '" alt="' + escapeHtml(category.name) + '" onerror="this.src=\'/assets/images/default.png\'">',
+      '  <span class="market-trending-overlay"></span>',
+      '  <span class="market-trending-count">' + escapeHtml(compactNumber(category.productCount)) + ' listings</span>',
+      '  <strong>' + escapeHtml(category.name) + '</strong>',
+      '  <small>' + escapeHtml(highlights.join(' • ') || 'Explore products and packages') + '</small>',
+      '</a>'
+    ].join("");
+  }
+
+  function newlyPackageItem(product) {
+    return [
+      '<a class="market-new-package" href="' + escapeHtml(product.url || "products.html") + '">',
+      '  <img loading="lazy" src="' + escapeHtml(safeUrl(product.image)) + '" alt="' + escapeHtml(product.name) + '" onerror="this.src=\'/assets/images/default.png\'">',
+      '  <strong>' + escapeHtml(product.brand || (product.category && product.category.name) || product.name) + '</strong>',
+      '  <span>' + escapeHtml(formatMoney(product.price, product.currency)) + '</span>',
+      '</a>'
+    ].join("");
+  }
+
+  function sellerShowcaseCard(seller, products) {
+    var sellerProducts = products.filter(function (product) { return product.seller && product.seller.id === seller.id; }).slice(0, 4);
+    if (!sellerProducts.length) sellerProducts = products.slice(0, 3);
+    var initial = (seller.name || "S").charAt(0).toUpperCase();
+    var avatar = seller.avatar ? '<img loading="lazy" src="' + escapeHtml(safeUrl(seller.avatar)) + '" alt="' + escapeHtml(seller.name) + '">' : escapeHtml(initial);
+    var tier = Number(seller.ratingAverage || 0) >= 4.9 ? 'Vibranium' : Number(seller.ratingAverage || 0) >= 4.7 ? 'Platinum' : 'Gold';
+    return [
+      '<article class="market-seller-feature-card">',
+      '  <div class="market-seller-feature-head">',
+      '    <span class="market-avatar seller-big">' + avatar + '</span>',
+      '    <div><strong>' + escapeHtml(seller.name || "Seller") + '</strong><span><i class="las la-medal"></i> ' + escapeHtml(tier) + ' &nbsp; ' + escapeHtml(Number(seller.ratingAverage || 0).toFixed(1)) + ' ★</span></div>',
+      '  </div>',
+      '  <div class="market-seller-divider"></div>',
+      '  <p>Top products sold</p>',
+      '  <div class="market-seller-products">' + sellerProducts.map(function (product) {
+        return '<a href="' + escapeHtml(product.url || "products.html") + '"><img loading="lazy" src="' + escapeHtml(safeUrl(product.image)) + '" alt="' + escapeHtml(product.name) + '" onerror="this.src=\'/assets/images/default.png\'"><span>' + escapeHtml(product.name) + '</span></a>';
+      }).join("") + '</div>',
+      '  <a class="market-seller-more" href="' + escapeHtml(seller.url || "products.html") + '">More details <i class="las la-arrow-right"></i></a>',
+      '</article>'
+    ].join("");
+  }
+
+  function renderMarketplaceShowcase(data) {
+    var tabSpecs = [
+      { key: 'new', label: 'New Items', icon: 'la-sparkles', products: uniqueProductsFromSections(data, ['new-arrivals', 'recently-added', 'recently-updated'], 8) },
+      { key: 'views', label: 'Most Views', icon: 'la-eye', products: uniqueProductsFromSections(data, ['most-viewed-products', 'trending-products'], 8) },
+      { key: 'seller', label: 'Best Sellers', icon: 'la-crown', products: uniqueProductsFromSections(data, ['best-sellers', 'top-selling-today', 'popular-this-month'], 8) },
+      { key: 'fast', label: 'Fast Delivery', icon: 'la-shipping-fast', products: uniqueProductsFromSections(data, ['fast-delivery-products', 'verified-sellers-products'], 8) },
+      { key: 'deals', label: 'Hot Deals', icon: 'la-tags', products: uniqueProductsFromSections(data, ['hot-deals', 'flash-sale', 'budget-picks'], 8) }
+    ];
+    var fallback = allMarketplaceProducts(data, 8);
+    tabSpecs.forEach(function (tab) { if (!tab.products.length) tab.products = fallback; });
+
+    qs('#marketFeaturedTabs').innerHTML = tabSpecs.map(function (tab, index) {
+      return '<button type="button" class="' + (index === 0 ? 'active' : '') + '" data-market-tab="' + escapeHtml(tab.key) + '"><i class="las ' + escapeHtml(tab.icon) + '"></i> ' + escapeHtml(tab.label) + '</button>';
+    }).join('');
+    qs('#marketFeaturedChips').innerHTML = ((data.categories && data.categories.popular) || []).slice(0, 7).map(function (category, index) {
+      return '<a class="' + (index === 0 ? 'active' : '') + '" href="' + escapeHtml(category.url || 'products.html') + '"><img loading="lazy" src="' + escapeHtml(safeUrl(category.image)) + '" alt="">' + escapeHtml(category.name) + '</a>';
+    }).join('') + '<a href="categories.html"><i class="las la-ellipsis-h"></i> More</a>';
+
+    function renderGrid(key) {
+      var active = tabSpecs.find(function (tab) { return tab.key === key; }) || tabSpecs[0];
+      qs('#marketFeaturedTabGrid').innerHTML = active.products.length ? active.products.slice(0, 8).map(function (product, index) {
+        return marketplaceProductTile(product, index === 0 ? 'wide' : '');
+      }).join('') : emptyState('No products are available for this marketplace tab yet.');
+    }
+    renderGrid(tabSpecs[0].key);
+    qsa('[data-market-tab]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        qsa('[data-market-tab]').forEach(function (item) { item.classList.toggle('active', item === button); });
+        renderGrid(button.getAttribute('data-market-tab'));
+        setupActions();
+      });
+    });
+
+    var trendingCategories = ((data.categories && (data.categories.popular || data.categories.all)) || []).slice(0, 6);
+    qs('#marketTrendingGames').innerHTML = trendingCategories.length ? trendingCategories.map(trendingCategoryCard).join('') : emptyState('Trending categories will appear after catalog setup.');
+    var newPackages = uniqueProductsFromSections(data, ['recently-added', 'new-arrivals', 'recommended-products', 'fast-delivery-products'], 10);
+    qs('#marketNewPackages').innerHTML = newPackages.length ? newPackages.map(newlyPackageItem).join('') : emptyState('New packages will appear after products are added.');
+  }
+
+  function renderSellerShowcase(data) {
+    var verified = data.sellers && data.sellers.verified ? data.sellers.verified : [];
+    var premium = data.sellers && data.sellers.premium ? data.sellers.premium : [];
+    var sellers = (verified.length ? verified : premium).slice(0, 10);
+    var products = allMarketplaceProducts(data, 80);
+    qs('#marketSellerShowcase').innerHTML = sellers.length ? sellers.map(function (seller) { return sellerShowcaseCard(seller, products); }).join('') : emptyState('Featured sellers will appear after seller approval.');
   }
 
   function renderPlatiInspired(data) {
@@ -431,8 +597,10 @@
     renderStats(data.stats || {});
     renderHero(data);
     renderCategories(data);
+    renderMarketplaceShowcase(data);
     renderPlatiInspired(data);
     renderSections(data);
+    renderSellerShowcase(data);
     renderSellersReviewsBrands(data);
     renderKnowledge();
     updateCategoryMenus(data);
@@ -583,6 +751,17 @@
         var input = form && qs("input[name=amount]", form);
         if (input) input.value = button.getAttribute("data-amount") || "";
         qsa(".plati-amounts [data-amount]", form).forEach(function (item) { item.classList.toggle("active", item === button); });
+      });
+    });
+
+    qsa("[data-scroll-target]").forEach(function (button) {
+      if (button.dataset.scrollBound) return;
+      button.dataset.scrollBound = "true";
+      button.addEventListener("click", function () {
+        var target = qs("#" + button.getAttribute("data-scroll-target"));
+        if (!target) return;
+        var direction = Number(button.getAttribute("data-scroll-dir") || 1);
+        target.scrollBy({ left: direction * Math.max(280, target.clientWidth * 0.8), behavior: "smooth" });
       });
     });
   }
