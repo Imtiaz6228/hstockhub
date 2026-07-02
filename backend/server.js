@@ -4,10 +4,10 @@ const env = require('./src/config/env');
 const logger = require('./src/utils/logger');
 
 async function start() {
-  global.__HAOYI_MONGO_CONNECTED__ = await connectDatabase();
+  global.__HSTOCKHUB_MONGO_CONNECTED__ = await connectDatabase();
   const app = createApp();
   const server = app.listen(env.port, () => {
-    logger.info(`HaoYi secure backend running at ${env.appUrl} on port ${env.port}`);
+    logger.info(`hstockhub.com secure backend running at ${env.appUrl} on port ${env.port}`);
     logger.info(`Configurable admin login path: ${env.adminPath}/login`);
   });
 

@@ -1,0 +1,21 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="hstockhub.com logo dark variant">
+  <defs>
+    <linearGradient id="markGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#006FFF"/><stop offset="1" stop-color="#00D4FF"/></linearGradient>
+    <linearGradient id="accentGradient" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#006FFF"/><stop offset="1" stop-color="#22C55E"/></linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="10" dy="14" stdDeviation="9" flood-color="#061427" flood-opacity="0.18"/></filter>
+  </defs>
+  <g filter="url(#softShadow)">
+    <rect x="58" y="45" width="210" height="210" rx="46" fill="url(#markGradient)"/>
+    <path d="M74 61h178a40 40 0 0 1 0 72H74z" fill="#fff" opacity="0.14"/>
+    <rect x="112" y="92" width="28" height="116" rx="12" fill="#fff"/>
+    <rect x="187" y="92" width="28" height="116" rx="12" fill="#fff"/>
+    <rect x="129" y="138" width="72" height="26" rx="11" fill="#fff"/>
+    <path d="M205 108l28-19M205 192l34 25" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity="0.72"/>
+    <circle cx="232" cy="89" r="10" fill="#BFF7FF"/><circle cx="240" cy="217" r="10" fill="#BFF7FF"/><circle cx="205" cy="192" r="12" fill="#22C55E"/>
+  </g>
+  <text x="315" y="151" font-family="Segoe UI, Arial, sans-serif" font-size="86" font-weight="800" fill="#FFFFFF">hstock</text>
+  <text x="600" y="151" font-family="Segoe UI, Arial, sans-serif" font-size="86" font-weight="800" fill="#4DE7FF">hub</text>
+  <text x="735" y="154" font-family="Segoe UI, Arial, sans-serif" font-size="62" font-weight="800" fill="#A7F3D0">.com</text>
+  <rect x="315" y="206" width="318" height="6" rx="3" fill="url(#accentGradient)"/>
+  <text x="315" y="250" font-family="Segoe UI, Arial, sans-serif" font-size="26" fill="#C7D2FE">secure digital stock marketplace</text>
+</svg>

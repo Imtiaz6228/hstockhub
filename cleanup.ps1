@@ -1,7 +1,7 @@
 param()
 
 $ErrorActionPreference = 'SilentlyContinue'
-$root = 'D:\haoyi'
+$root = 'D:\hstockhub'
 
 function Log($msg) { Write-Host $msg }
 
@@ -52,7 +52,7 @@ Remove-IfExists "$root\i.imgur.com"
 # 3. DUPLICATE HTML VARIANTS
 # =============================================================================
 Log "`n=== Phase 3: Duplicate HTML variants ==="
-$siteRoot = "$root\HaoYi.com"
+$siteRoot = "$root\hstockhub.com"
 $duplicates = @(
     'index9ed2.html','indexadee.html',
     'blog34e2.html','blog65b9.html','blogf45c.html',

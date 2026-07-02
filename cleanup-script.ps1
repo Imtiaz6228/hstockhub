@@ -1,7 +1,7 @@
 param()
 
 $ErrorActionPreference = 'SilentlyContinue'
-$root = 'D:\haoyi'
+$root = 'D:\hstockhub'
 
 function Log($msg) { Write-Host $msg }
 function Remove-IfExists($path) {
@@ -51,7 +51,7 @@ Remove-IfExists "$root\i.imgur.com"
 # 3. DUPLICATE HTML VARIANTS
 # =============================================================================
 Log "`n=== Phase 3: Duplicate HTML variants ==="
-$siteRoot = "$root\HaoYi.com"
+$siteRoot = "$root\hstockhub.com"
 $duplicates = @(
     'index9ed2.html','indexadee.html',
     'blog34e2.html','blog65b9.html','blogf45c.html',
@@ -143,8 +143,8 @@ foreach ($file in $htmlFiles) {
     # Remove view-transition meta
     $content = [regex]::Replace($content, '\s*<meta name="view-transition"[^>]+>\s*', '')
 
-    # Replace absolute URLs to HaoYi.com with relative placeholders
-    $content = $content -replace 'https?://(www\.)?HaoYi\.com', '/placeholder'
+    # Replace absolute URLs to hstockhub.com with relative placeholders
+    $content = $content -replace 'https?://(www\.)?hstockhub.com\.com', '/placeholder'
 
     # Remove copied phone numbers, emails, addresses
     $content = [regex]::Replace($content, '地址[：:]\s*[^<"\n]+', '地址：[REDACTED]')
@@ -187,7 +187,7 @@ foreach ($file in $cssFiles) {
     $content = [regex]::Replace($content, "font-family:\s*'Inter',[^;]+;", 'font-family: system-ui, sans-serif;')
     $content = [regex]::Replace($content, "font-family:\s*'Line Awesome',[^;]+;", 'font-family: inherit;')
 
-    # Neutralize HaoYi brand colors
+    # Neutralize hstockhub.com brand colors
     $content = [regex]::Replace($content, 'var\(--[a-z-]+\):', 'var(--hy-primary):', 'All')
     $content = [regex]::Replace($content, '#(006fff|0059cc|f97316|16a34a|dc2626)', '#3b82f6')
 
@@ -229,8 +229,8 @@ foreach ($file in $jsFiles) {
     $content = [regex]::Replace($content, 'https?://www\.googletagmanager\.com/[^"'\''`n`r`s]+', '')
     $content = [regex]::Replace($content, 'https?://connect\.facebook\.net/[^"'\''`n`r`s]+', '')
 
-    # Remove absolute URLs to HaoYi.com
-    $content = $content -replace 'https?://(www\.)?HaoYi\.com', '/placeholder'
+    # Remove absolute URLs to hstockhub.com
+    $content = $content -replace 'https?://(www\.)?hstockhub.com\.com', '/placeholder'
 
     if ($content -ne $original) {
         [System.IO.File]::WriteAllText($file.FullName, $content, [System.Text.Encoding]::UTF8)
@@ -306,7 +306,7 @@ $report = @"
 Top-level items:
 $((Get-ChildItem -LiteralPath $root -Force | Select-Object Name, Length, Mode | Format-Table -AutoSize | Out-String).Trim())
 
-HaoYi.com stats:
+hstockhub.com stats:
   HTML: $((Get-ChildItem -LiteralPath $siteRoot -Recurse -File -Filter *.html -Force).Count)
   CSS:  $((Get-ChildItem -LiteralPath $siteRoot -Recurse -File -Filter *.css -Force).Count)
   JS:   $((Get-ChildItem -LiteralPath $siteRoot -Recurse -File -Filter *.js -Force).Count)

@@ -1,4 +1,4 @@
-# HaoYi Secure Marketplace Backend
+# hstockhub.com Secure Marketplace Backend
 
 This backend replaces the earlier local JSON demo with a production-oriented **Node.js + Express + MongoDB/Mongoose** MVC system. It keeps the existing mirrored frontend in the same project folder and serves only public frontend assets/pages to unauthenticated visitors.
 

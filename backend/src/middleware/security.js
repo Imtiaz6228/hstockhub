@@ -63,7 +63,7 @@ function configureSecurity(app) {
 }
 
 function reqMongoStore() {
-  if (!global.__HAOYI_MONGO_CONNECTED__) return undefined;
+  if (!global.__HSTOCKHUB_MONGO_CONNECTED__) return undefined;
   return MongoStore.create({ mongoUrl: env.mongoUri, ttl: 14 * 24 * 60 * 60, autoRemove: 'native' });
 }
 

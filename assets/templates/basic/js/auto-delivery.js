@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var STORAGE_KEY = 'haoyi_auto_delivery_v1';
+  var STORAGE_KEY = 'hstockhub_auto_delivery_v1';
   var currency = '¥';
 
   function uid(prefix) {
@@ -466,7 +466,7 @@
     return '<div class="hy-grid cols-4"><div class="hy-card hy-stat"><span>Orders</span><strong data-customer-orders>0</strong></div><div class="hy-card hy-stat"><span>Delivered Credentials</span><strong data-customer-delivered>0</strong></div><div class="hy-card hy-stat"><span>Available Stock</span><strong data-customer-available>0</strong></div><div class="hy-card hy-stat"><span>Notifications</span><strong data-customer-notifications>0</strong></div></div><section class="hy-card hy-panel" style="margin-top:18px"><div class="hy-section-title"><div><h3>Buy Account Credentials</h3><p>After successful payment, credentials are allocated instantly from available stock and saved to your order.</p></div><button class="hy-btn secondary" data-customer-seed>Seed seller demo stock</button></div><div class="hy-inline"><div class="hy-field"><label>Product</label><select data-buy-product></select></div><div class="hy-field"><label>Quantity</label><input type="number" data-buy-qty min="1" value="1"></div></div><button class="hy-btn orange" data-customer-pay>Simulate Successful Payment & Instant Delivery</button></section><section class="hy-card hy-panel" style="margin-top:18px"><h3>Product Inventory</h3><table class="hy-table"><thead><tr><th>Product</th><th>Price</th><th>Available</th><th>Status</th></tr></thead><tbody data-catalog-body></tbody></table></section><section class="hy-card hy-panel" style="margin-top:18px"><h3>Customer Orders & Delivered Credentials</h3><table class="hy-table"><thead><tr><th>Order</th><th>Product</th><th>Qty</th><th>Status</th><th>Total</th></tr></thead><tbody data-customer-orders-body></tbody></table></section><section class="hy-card hy-panel" style="margin-top:18px"><h3>Notifications</h3><div data-notification-list class="hy-notification-list"></div></section>';
   }
 
-  window.HaoYiAutoDelivery = {
+  window.hstockhub.comAutoDelivery = {
     loadState: loadState,
     saveState: saveState,
     parseStock: parseStock,

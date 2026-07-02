@@ -65,7 +65,7 @@
   function storeRecentSearch(term) {
     var value = String(term || "").trim();
     if (!value) return;
-    var key = "haoyi_recent_searches";
+    var key = "hstockhub_recent_searches";
     var list = [];
     try {
       list = JSON.parse(localStorage.getItem(key) || "[]");
@@ -78,7 +78,7 @@
 
   function getRecentSearches() {
     try {
-      return JSON.parse(localStorage.getItem("haoyi_recent_searches") || "[]").slice(0, 8);
+      return JSON.parse(localStorage.getItem("hstockhub_recent_searches") || "[]").slice(0, 8);
     } catch (error) {
       return [];
     }
@@ -86,7 +86,7 @@
 
   function rememberViewedProduct(id) {
     if (!id) return;
-    var key = "haoyi_recent_product_ids";
+    var key = "hstockhub_recent_product_ids";
     var list = [];
     try {
       list = JSON.parse(localStorage.getItem(key) || "[]");
@@ -120,7 +120,7 @@
       '  <div class="market-shell market-hero-grid">',
       '    <div class="market-hero-panel">',
       '      <p class="market-eyebrow"><i class="las la-store"></i> Live marketplace</p>',
-      '      <h1 id="marketHeroTitle">HaoYi Marketplace</h1>',
+      '      <h1 id="marketHeroTitle">hstockhub.com Marketplace</h1>',
       '      <p class="market-hero-copy">Discover active digital products, verified sellers, category leaders, best sellers, deals, and fresh arrivals from the current catalog.</p>',
       '      <form class="market-search" id="marketHeroSearch" role="search">',
       '        <label class="market-search-field" for="marketHeroInput"><i class="las la-search"></i><input id="marketHeroInput" name="search" type="search" autocomplete="off" placeholder="Search products, categories, sellers"></label>',
@@ -143,7 +143,7 @@
       '<section class="market-category-strip" aria-label="Featured categories"><div class="market-shell market-category-scroll" id="marketCategoryStrip"></div></section>',
       '<section class="plati-inspired" aria-labelledby="platiPopularTitle">',
       '  <div class="market-shell">',
-      '    <div class="plati-mobile-header"><button type="button" aria-label="Open categories"><i class="las la-th-large"></i></button><strong>HAOYI</strong><button type="button" aria-label="Search"><i class="las la-search"></i></button></div>',
+      '    <div class="plati-mobile-header"><button type="button" aria-label="Open categories"><i class="las la-th-large"></i></button><strong>HSTOCKHUB</strong><button type="button" aria-label="Search"><i class="las la-search"></i></button></div>',
       '    <div class="plati-card plati-popular-card"><div class="plati-section-title"><h2 id="platiPopularTitle">Popular</h2><a href="categories.html">All</a></div><div class="plati-popular-rail" id="platiPopularRail"></div></div>',
       '    <div class="plati-card plati-topup-card"><div class="plati-section-title"><h2>Top-up Center</h2><span>Instant wallet refill demo</span></div><div class="plati-tabs" id="platiTopupTabs"></div><div class="plati-region-tabs"><button class="active" type="button">CIS countries</button><button type="button">Turkey</button><button type="button">Global</button></div><form class="plati-topup-form" id="platiTopupForm"><label><input name="amount" placeholder="Top-up amount" inputmode="decimal"></label><div class="plati-amounts"><button type="button" data-amount="10">10 $</button><button type="button" data-amount="25">25 $</button><button type="button" data-amount="50">50 $</button><button type="button" data-amount="100">100 $</button></div><label><input name="login" placeholder="Account login / player ID"></label><small>Demo only: selecting a product opens its live marketplace listing.</small><button class="market-button" type="submit"><i class="las la-bolt"></i> Continue top-up</button></form></div>',
       '    <div class="plati-card"><div class="plati-section-title"><h2>Best Sellers</h2><a href="products.html?sort=best-sellers">View all</a></div><div class="plati-best-grid" id="platiBestGrid"></div></div>',
@@ -153,12 +153,12 @@
       '<section class="market-section tight" aria-labelledby="popularCategoriesTitle"><div class="market-shell"><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-fire"></i> Popular Categories</p><h2 id="popularCategoriesTitle">Category demand map</h2></div></div><div class="market-grid market-category-grid" id="marketPopularCategories"></div></div></section>',
       '<div id="marketProductSections"></div>',
       '<section class="market-section" aria-labelledby="categoryHighlightsTitle"><div class="market-shell"><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-layer-group"></i> Category Highlights</p><h2 id="categoryHighlightsTitle">Top, popular, latest, best-selling, and rated products by category</h2></div></div><div class="market-grid market-category-grid" id="marketCategoryHighlights"></div></div></section>',
-      '<section class="market-section" aria-labelledby="sellerTitle"><div class="market-shell market-columns"><div><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-user-check"></i> Verified Sellers</p><h2 id="sellerTitle">Premium seller signals</h2></div></div><div class="market-seller-grid" id="marketSellers"></div></div><aside class="market-panel"><p class="market-section-kicker"><i class="las la-shield-alt"></i> Why Choose Us</p><h2>Trust, stock, and delivery clarity</h2><p>HaoYi prioritizes active listings, seller verification, stock status, delivery type, rating data, and completed-sale signals so buyers can scan quickly.</p><div class="market-quick-links"><a class="market-chip" href="products.html"><i class="las la-shopping-bag"></i> Products</a><a class="market-chip" href="faq.html"><i class="las la-question-circle"></i> FAQs</a><a class="market-chip" href="contact.html"><i class="las la-headset"></i> Support</a></div></aside></div></section>',
+      '<section class="market-section" aria-labelledby="sellerTitle"><div class="market-shell market-columns"><div><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-user-check"></i> Verified Sellers</p><h2 id="sellerTitle">Premium seller signals</h2></div></div><div class="market-seller-grid" id="marketSellers"></div></div><aside class="market-panel"><p class="market-section-kicker"><i class="las la-shield-alt"></i> Why Choose Us</p><h2>Trust, stock, and delivery clarity</h2><p>hstockhub.com prioritizes active listings, seller verification, stock status, delivery type, rating data, and completed-sale signals so buyers can scan quickly.</p><div class="market-quick-links"><a class="market-chip" href="products.html"><i class="las la-shopping-bag"></i> Products</a><a class="market-chip" href="faq.html"><i class="las la-question-circle"></i> FAQs</a><a class="market-chip" href="contact.html"><i class="las la-headset"></i> Support</a></div></aside></div></section>',
       '<section class="market-section" aria-labelledby="reviewsTitle"><div class="market-shell"><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-comments"></i> Customer Reviews</p><h2 id="reviewsTitle">Published marketplace feedback</h2></div></div><div class="market-review-grid" id="marketReviews"></div></div></section>',
       '<section class="market-section" aria-labelledby="brandsTitle"><div class="market-shell"><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-certificate"></i> Featured Brands</p><h2 id="brandsTitle">Brand records from live products</h2></div></div><div class="market-brand-grid" id="marketBrands"></div></div></section>',
       '<section class="market-section" aria-labelledby="knowledgeTitle"><div class="market-shell"><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-newspaper"></i> Knowledge Center</p><h2 id="knowledgeTitle">Marketplace resources</h2></div></div><div class="market-knowledge-grid" id="marketKnowledge"></div></div></section>',
       '<section class="market-section tight" aria-labelledby="faqTitle"><div class="market-shell"><div class="market-section-head"><div><p class="market-section-kicker"><i class="las la-question"></i> FAQs</p><h2 id="faqTitle">Fast answers</h2></div></div><div class="market-faq-grid" id="marketFaqs"></div></div></section>',
-      '<section class="market-section" aria-labelledby="conversionTitle"><div class="market-shell market-conversion-grid"><form class="market-newsletter" id="marketNewsletter"><div><p class="market-section-kicker"><i class="las la-envelope"></i> Newsletter</p><h2 id="conversionTitle">Follow catalog movement</h2><label for="marketEmail">Email address</label><input id="marketEmail" type="email" placeholder="you@example.com"></div><button class="market-button" type="submit"><i class="las la-paper-plane"></i> Subscribe</button></form><div class="market-app-card"><p class="market-section-kicker"><i class="las la-mobile"></i> App Download</p><h2>Install the web app</h2><p>Use HaoYi from a mobile home screen with the existing web app manifest and service worker.</p><div class="market-app-actions"><button class="market-button" id="marketInstallApp" type="button"><i class="las la-download"></i> Install</button><a class="market-button secondary" href="products.html"><i class="las la-shopping-basket"></i> Open Marketplace</a></div></div></div></section>',
+      '<section class="market-section" aria-labelledby="conversionTitle"><div class="market-shell market-conversion-grid"><form class="market-newsletter" id="marketNewsletter"><div><p class="market-section-kicker"><i class="las la-envelope"></i> Newsletter</p><h2 id="conversionTitle">Follow catalog movement</h2><label for="marketEmail">Email address</label><input id="marketEmail" type="email" placeholder="you@example.com"></div><button class="market-button" type="submit"><i class="las la-paper-plane"></i> Subscribe</button></form><div class="market-app-card"><p class="market-section-kicker"><i class="las la-mobile"></i> App Download</p><h2>Install the web app</h2><p>Use hstockhub.com from a mobile home screen with the existing web app manifest and service worker.</p><div class="market-app-actions"><button class="market-button" id="marketInstallApp" type="button"><i class="las la-download"></i> Install</button><a class="market-button secondary" href="products.html"><i class="las la-shopping-basket"></i> Open Marketplace</a></div></div></div></section>',
       '<div class="market-modal" id="marketQuickView" role="dialog" aria-modal="true" aria-labelledby="marketQuickTitle"><div class="market-modal-dialog"><div class="market-modal-head"><h3 id="marketQuickTitle">Product</h3><button class="market-icon-button" data-action="close-modal" type="button" aria-label="Close quick view"><i class="las la-times"></i></button></div><div class="market-modal-body" id="marketQuickBody"></div></div></div>'
     ].join("");
   }
@@ -169,13 +169,13 @@
     oldFooter.outerHTML = [
       '<footer class="market-footer site-footer">',
       '  <div class="market-shell market-footer-grid">',
-      '    <div><a class="header-v2__logo" href="index.html"><img src="assets/images/logo_icon/logo.png" alt="HaoYi"></a><p>Premium marketplace discovery powered by active products, categories, sellers, ratings, stock, and sales data.</p></div>',
+      '    <div><a class="header-v2__logo" href="index.html"><img src="assets/images/logo_icon/logo.png" alt="hstockhub.com"></a><p>Premium marketplace discovery powered by active products, categories, sellers, ratings, stock, and sales data.</p></div>',
       '    <div><h2>Marketplace</h2><a href="products.html">Products</a><a href="categories.html">Categories</a><a href="#marketProductSections">Trending</a></div>',
       '    <div><h2>Account</h2><a href="auth/buyer/login">Buyer Login</a><a href="auth/seller/login">Seller Login</a><a href="user/register.html">Register</a></div>',
       '    <div><h2>Resources</h2><a href="blog.html">Blog Articles</a><a href="faq.html">Knowledge Center</a><a href="contact.html">Support</a></div>',
       '    <div><h2>Legal</h2><a href="policy/privacy-policy.html">Privacy</a><a href="policy/terms-of-service.html">Terms</a><a href="policy/refund-policy.html">Refunds</a></div>',
       '  </div>',
-      '  <div class="market-shell market-footer-bottom"><span>&copy; 2026 HaoYi. All rights reserved.</span><span>Live catalog sections refresh from the database.</span></div>',
+      '  <div class="market-shell market-footer-bottom"><span>&copy; 2026 hstockhub.com. All rights reserved.</span><span>Live catalog sections refresh from the database.</span></div>',
       '</footer>'
     ].join("");
   }
@@ -398,7 +398,7 @@
       ["Blog Articles", "Read existing marketplace posts and product updates.", "blog.html", "la-newspaper"],
       ["Knowledge Center", "Find answers, policies, and buyer guidance.", "faq.html", "la-book-open"],
       ["Marketplace News", "Follow catalog changes and platform notices.", "blog.html", "la-bullhorn"],
-      ["Support", "Contact the HaoYi team for marketplace help.", "contact.html", "la-headset"]
+      ["Support", "Contact the hstockhub.com team for marketplace help.", "contact.html", "la-headset"]
     ];
     qs("#marketKnowledge").innerHTML = cards.map(function (card) {
       return '<a class="market-knowledge-card" href="' + card[2] + '"><i class="las ' + card[3] + '"></i><strong>' + escapeHtml(card[0]) + '</strong><span>' + escapeHtml(card[1]) + '</span></a>';
@@ -549,12 +549,12 @@
         var id = button.getAttribute("data-product-id");
         if (action === "wishlist") {
           event.preventDefault();
-          var active = toggleStorageList("haoyi_wishlist_product_ids", id);
+          var active = toggleStorageList("hstockhub_wishlist_product_ids", id);
           button.classList.toggle("active", active);
         }
         if (action === "compare") {
           event.preventDefault();
-          var compared = toggleStorageList("haoyi_compare_product_ids", id);
+          var compared = toggleStorageList("hstockhub_compare_product_ids", id);
           button.classList.toggle("active", compared);
         }
         if (action === "quick") {

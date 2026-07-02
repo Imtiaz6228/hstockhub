@@ -1,6 +1,6 @@
 {
-  "name": "HaoYi账号商店",
-  "short_name": "HaoYi商店",
+  "name": "hstockhub.com账号商店",
+  "short_name": "hstockhub.com商店",
   "description": "数字账号交易平台 - 安全快捷的账号购买服务",
   "start_url": "/?source=pwa",
   "scope": "/",
