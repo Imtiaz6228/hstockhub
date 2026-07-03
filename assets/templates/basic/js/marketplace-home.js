@@ -27,9 +27,9 @@
 
   function safeUrl(value) {
     var url = String(value || "").trim();
-    if (!url) return "/assets/images/default.png";
+    if (!url) return "assets/images/default.png";
     if (/^(https?:|data:image\/|\/)/i.test(url)) return url;
-    return "/" + url.replace(/^\/+/, "");
+    return url.replace(/^\/+/, "");
   }
 
   function compactNumber(value) {
@@ -571,9 +571,9 @@
     }).join("");
 
     var faqs = [
-      ["Are homepage products manually created?", "No. Product sections are rendered from active database products returned by the homepage API."],
+      ["Are homepage products manually created?", "No. Product sections render from the homepage API, with the mirrored categories.html catalog used when the API is unavailable."],
       ["How are categories displayed?", "Every active category is shown with product counts and live product highlights."],
-      ["What happens when data changes?", "The API rebuilds the page payload from products, categories, sellers, ratings, stock, wishlists, and orders."]
+      ["What happens when data changes?", "The homepage uses live API data when available and falls back to the mirrored categories.html catalog for local browsing."]
     ];
     qs("#marketFaqs").innerHTML = faqs.map(function (faq) {
       return '<article class="market-faq-card"><strong>' + escapeHtml(faq[0]) + '</strong><p>' + escapeHtml(faq[1]) + '</p></article>';
@@ -665,17 +665,35 @@
     };
   }
 
+  function hasRenderableData(data) {
+    return !!(data && (
+      (data.heroProducts && data.heroProducts.length) ||
+      (data.sections && data.sections.some(function (section) { return section.items && section.items.length; })) ||
+      (data.categories && data.categories.all && data.categories.all.length)
+    ));
+  }
+
+  function staticMirrorData() {
+    if (window.__HSTOCKHUB_STATIC_HOME) return window.__HSTOCKHUB_STATIC_HOME;
+    return fallbackData({ products: [] }, { categories: [] });
+  }
   function loadHomepage() {
     return fetch("/api/homepage", { credentials: "same-origin" })
       .then(function (response) {
         if (!response.ok) throw new Error("homepage api");
         return response.json();
       })
+      .then(function (data) {
+        return hasRenderableData(data) ? data : staticMirrorData();
+      })
       .catch(function () {
         return Promise.all([
           fetch("/api/products?limit=100", { credentials: "same-origin" }).then(function (response) { return response.ok ? response.json() : { products: [] }; }),
           fetch("/api/categories", { credentials: "same-origin" }).then(function (response) { return response.ok ? response.json() : { categories: [] }; })
-        ]).then(function (responses) { return fallbackData(responses[0], responses[1]); });
+        ])
+          .then(function (responses) { return fallbackData(responses[0], responses[1]); })
+          .then(function (data) { return hasRenderableData(data) ? data : staticMirrorData(); })
+          .catch(function () { return staticMirrorData(); });
       });
   }
 
